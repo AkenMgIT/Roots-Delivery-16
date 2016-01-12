@@ -15,11 +15,15 @@ public class DaoCon {
         String password = "";
         try {
         	prop = PropertiesUtil.readProperties();
-        	driver = prop.getProperty("driver");
-        	url = prop.getProperty("url");
-        	user = prop.getProperty("user");
-        	password = prop.getProperty("password");
-            Class.forName("org.postgresql.Driver");
+//        	driver = prop.getProperty("driver");
+//        	url = prop.getProperty("url");
+//        	user = prop.getProperty("user");
+//        	password = prop.getProperty("password");
+        	driver = "org.postgresql.Driver";
+        	url = "jdbc:postgresql://localhost:5432/RootsDeliver-test-01";
+        	user = "postgres";
+        	password = "123456";
+            Class.forName(driver);
             con = DriverManager.getConnection(url, user, password);
             return con;
         } catch (ClassNotFoundException e) {
