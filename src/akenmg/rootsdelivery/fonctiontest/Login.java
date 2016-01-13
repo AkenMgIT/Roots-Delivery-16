@@ -1,4 +1,4 @@
-package akenmg.rootsdelivery.daotest;
+package akenmg.rootsdelivery.fonctiontest;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -7,20 +7,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import akenmg.rootsdelivery.dao.DaoAdmin;
 import akenmg.rootsdelivery.model.Admin;
+import akenmg.rootsdelivery.service.LoginService;
 
 /**
- * Servlet implementation class UpdateAdmin
+ * Servlet implementation class Login
  */
-@WebServlet("/daotest/UpdateAdmin")
-public class UpdateAdmin extends HttpServlet {
+@WebServlet("/daotest/Login")
+public class Login extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UpdateAdmin() {
+    public Login() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -38,18 +38,24 @@ public class UpdateAdmin extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		System.out.println(request.getParameter("id"));
-		System.out.println(request.getParameter("login"));
-		System.out.println(request.getParameter("mdp"));
+		String login = request.getParameter("login");
+		String mdp = request.getParameter("mdp");
 		
-		Admin admin = new Admin();
-		admin.setId(Integer.parseInt(request.getParameter("id")));
-		admin.setLogin(request.getParameter("login"));
-		admin.setMdp(request.getParameter("mdp"));
+		System.out.println(login);
+		System.out.println(mdp);
+		Admin admin = null;
 		
-		DaoAdmin.update(admin);
+		if(LoginService.loginAdmin(login, mdp)){
+			request.setAttribute("message", "Login success");
+			admin = LoginService.findAdmin(login);
+			request.getSession().setAttribute("user", admin);
+		}else{
+			request.setAttribute("message", "Login fail");
+		}
 		
-		response.sendRedirect("daoadmin.jsp");
+		
+		request.getRequestDispatcher("login.jsp").forward(request, response);
+//		response.sendRedirect("login.jsp");
 	}
 
 }

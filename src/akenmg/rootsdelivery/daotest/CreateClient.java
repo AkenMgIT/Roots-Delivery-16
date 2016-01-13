@@ -8,19 +8,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import akenmg.rootsdelivery.dao.DaoAdmin;
+import akenmg.rootsdelivery.dao.DaoClient;
 import akenmg.rootsdelivery.model.Admin;
+import akenmg.rootsdelivery.model.Client;
 
 /**
- * Servlet implementation class UpdateAdmin
+ * Servlet implementation class CreateClient
  */
-@WebServlet("/daotest/UpdateAdmin")
-public class UpdateAdmin extends HttpServlet {
+@WebServlet("/daotest/CreateClient")
+public class CreateClient extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UpdateAdmin() {
+    public CreateClient() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -38,18 +40,29 @@ public class UpdateAdmin extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		System.out.println(request.getParameter("id"));
-		System.out.println(request.getParameter("login"));
-		System.out.println(request.getParameter("mdp"));
+//		doGet(request, response);
+		String nom = request.getParameter("nom");
+		String prenom = request.getParameter("prenom");
+		String numero = request.getParameter("numero");
+		String email = request.getParameter("email");
+		String mdp = request.getParameter("mdp");
 		
-		Admin admin = new Admin();
-		admin.setId(Integer.parseInt(request.getParameter("id")));
-		admin.setLogin(request.getParameter("login"));
-		admin.setMdp(request.getParameter("mdp"));
+		System.out.println(nom);
+		System.out.println(prenom);
+		System.out.println(numero);
+		System.out.println(email);
+		System.out.println(mdp);
 		
-		DaoAdmin.update(admin);
+		Client client = new Client();
+		client.setNom(nom);
+		client.setPrenom(prenom);
+		client.setNumero(numero);
+		client.setEmail(email);
+		client.setMdp(mdp);
 		
-		response.sendRedirect("daoadmin.jsp");
+		DaoClient.create(client);
+		
+		response.sendRedirect("daoclient.jsp");
 	}
 
 }

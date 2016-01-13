@@ -8,19 +8,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import akenmg.rootsdelivery.dao.DaoAdmin;
-import akenmg.rootsdelivery.model.Admin;
+import akenmg.rootsdelivery.dao.DaoClient;
 
 /**
- * Servlet implementation class UpdateAdmin
+ * Servlet implementation class DeleteClient
  */
-@WebServlet("/daotest/UpdateAdmin")
-public class UpdateAdmin extends HttpServlet {
+@WebServlet("/daotest/DeleteClient")
+public class DeleteClient extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UpdateAdmin() {
+    public DeleteClient() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,7 +30,12 @@ public class UpdateAdmin extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+//		response.getWriter().append("Served at: ").append(request.getContextPath());
+		System.out.println(request.getParameter("id"));
+		
+		DaoClient.delete(Integer.parseInt(request.getParameter("id")));
+		
+		response.sendRedirect("daoclient.jsp");
 	}
 
 	/**
@@ -38,18 +43,7 @@ public class UpdateAdmin extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		System.out.println(request.getParameter("id"));
-		System.out.println(request.getParameter("login"));
-		System.out.println(request.getParameter("mdp"));
-		
-		Admin admin = new Admin();
-		admin.setId(Integer.parseInt(request.getParameter("id")));
-		admin.setLogin(request.getParameter("login"));
-		admin.setMdp(request.getParameter("mdp"));
-		
-		DaoAdmin.update(admin);
-		
-		response.sendRedirect("daoadmin.jsp");
+		doGet(request, response);
 	}
 
 }
