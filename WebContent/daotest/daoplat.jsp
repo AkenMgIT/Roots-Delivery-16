@@ -14,13 +14,15 @@
 	<h1>Dao Plat test</h1>
 	
 	<h2>Insert</h2>
-	<form method="post" action="CreatePlat">
+	<form method="post" action="CreatePlat"> 
 		<input type="text" name="titre" placeholder="titre"> 
 		<input type="text" name="description" placeholder="description"> 
 		<input type="text" name="prix" placeholder="prix"> 
 		<input type="text" name="img" placeholder="img" > 
 		<input type="submit" value="insert">  
 	</form>
+	
+	
 	
 	<hr>
 	<h2>GetAll</h2>
@@ -47,7 +49,7 @@
 			<td><input type="text" name="prix" value="<%= a.getPrix()  %>"> </td> 
 			<td><input type="text" name="img" value="<%= a.getImg()  %>"> </td> 
 			<td><input type="submit" value="update"></td> 
-			<td><a href="DeleteClient?id=<%= a.getId() %>">delete</a></td>
+			<td><a href="DeletePlat?id=<%= a.getId() %>">delete</a></td>
 		</tr>
 		</form>
 	<% 

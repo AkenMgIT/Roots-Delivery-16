@@ -7,20 +7,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import akenmg.rootsdelivery.dao.DaoAdmin;
-import akenmg.rootsdelivery.dao.DaoClient;
+import akenmg.rootsdelivery.dao.DaoPlat;
+import akenmg.rootsdelivery.model.Plat;
 
 /**
- * Servlet implementation class DeleteClient
+ * Servlet implementation class CreatePlat
  */
-@WebServlet("/daotest/DeleteClient")
-public class DeleteClient extends HttpServlet {
+@WebServlet("/daotest/CreatePlat")
+public class CreatePlat extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DeleteClient() {
+    public CreatePlat() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,11 +29,8 @@ public class DeleteClient extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println(request.getParameter("id"));
-		
-		DaoClient.delete(Integer.parseInt(request.getParameter("id")));
-		
-		response.sendRedirect("daoclient.jsp");
+		// TODO Auto-generated method stub
+		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
@@ -41,7 +38,26 @@ public class DeleteClient extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
+//		doGet(request, response);
+		String titre = request.getParameter("titre");
+		String description = request.getParameter("description");
+		String prix = request.getParameter("prix");
+		String img = request.getParameter("img");
+		
+		System.out.println(titre);
+		System.out.println(description);
+		System.out.println(prix);
+		System.out.println(img);
+		
+		Plat plat = new Plat();
+		plat.setTitre(titre);
+		plat.setDescription(description);
+		plat.setPrix(Integer.parseInt(prix));
+		plat.setImg(img);
+		
+		DaoPlat.create(plat);
+		
+		response.sendRedirect("daoplat.jsp");
 	}
 
 }

@@ -1,31 +1,27 @@
-package akenmg.rootsdelivery.controller;
+package akenmg.rootsdelivery.fonctiontest;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.Properties;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import akenmg.rootsdelivery.dao.DaoCon;
-import akenmg.rootsdelivery.util.PropertiesUtil;
+import akenmg.rootsdelivery.dao.DaoPlat;
+import akenmg.rootsdelivery.model.Commande;
+import akenmg.rootsdelivery.model.Plat;
 
 /**
- * Servlet implementation class SandBox
+ * Servlet implementation class RemovePlatCommande
  */
-@WebServlet("/SandBox")
-public class SandBox extends HttpServlet {
-	private String url = "index.jsp";
-	
+@WebServlet("/daotest/RemovePlatCommande")
+public class RemovePlatCommande extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SandBox() {
+    public RemovePlatCommande() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,13 +30,21 @@ public class SandBox extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		PrintWriter out = response.getWriter();
-		out.println("<h1> SandBox </h1>");
-		
-		DaoCon.testconn();
-		
-//		out.println("db_url : "+PropertiesUtil.readProperties().getProperty("url"));
-		
+		String id = request.getParameter("id");
+		Plat plat = DaoPlat.find(Integer.parseInt(id));
+		Commande commande = (Commande)request.getSession().getAttribute("commande");
+		if(commande!=null){
+			for(int i=0;i<commande.getPlacoms().size();i++){
+				if(commande.getPlacoms().get(i).getPlat().getId()==plat.getId()){
+					commande.getPlacoms().remove(i);
+					break;
+				}
+			}
+		}else{
+			System.out.println("pat de commande disponible");
+			System.out.println("Créer une commande?");
+		}
+		response.sendRedirect("daocommande.jsp");
 	}
 
 	/**

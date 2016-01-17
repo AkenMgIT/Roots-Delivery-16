@@ -14,6 +14,7 @@ public class Commande {
 	private int id;
 	private Client client;
 	private List<Plat> plat;
+	private List<PlaCom> placoms;
 	private String adresse;
 	private Date date;
 	private ETAT etat;
@@ -21,6 +22,15 @@ public class Commande {
 	public Commande() {
 		super();
 		plat = new ArrayList<Plat>();
+		placoms = new ArrayList<PlaCom>();
+	}
+
+	public List<PlaCom> getPlacoms() {
+		return placoms;
+	}
+
+	public void setPlacoms(List<PlaCom> placoms) {
+		this.placoms = placoms;
 	}
 
 	public Commande(int id, Client client, List<Plat> plat, String adresse,Date date, ETAT etat) {

@@ -14,7 +14,7 @@ public class DaoCon {
         String user = "";
         String password = "";
         try {
-        	prop = PropertiesUtil.readProperties();
+//        	prop = PropertiesUtil.readProperties();
 //        	driver = prop.getProperty("driver");
 //        	url = prop.getProperty("url");
 //        	user = prop.getProperty("user");
@@ -32,7 +32,7 @@ public class DaoCon {
         return null;
     }
     
-    public static void close(Connection con) {
+	public static void close(Connection con) {
         try {
             if (con != null) {
                 con.close();
@@ -52,9 +52,25 @@ public class DaoCon {
         }
     }
     
+    public static void close(ResultSet rs){
+    	try {
+    		if (rs != null) {
+    			rs.close();
+    		}
+    	} catch (Exception e) {
+    		e.printStackTrace();
+    	}
+    }
+    
     public static void close(Connection con,PreparedStatement preparedStatement){
-    	DaoCon.close(con);
     	DaoCon.close(preparedStatement);
+    	DaoCon.close(con);
+    }
+    
+    public static void close(Connection con,PreparedStatement preparedStatement, ResultSet rs){
+    	DaoCon.close(rs);
+    	DaoCon.close(preparedStatement);
+    	DaoCon.close(con);
     }
     
     public static void testconn() {
