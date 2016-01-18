@@ -105,6 +105,7 @@ public class DaoCommande {
 	}
 
 	public static void delete(int id) {
+		DaoPlaCom.delete(id);
 		Connection dbConnection = null ;
 		PreparedStatement preparedStatement = null;
 		try{
