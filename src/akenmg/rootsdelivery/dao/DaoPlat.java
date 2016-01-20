@@ -27,14 +27,7 @@ public class DaoPlat {
 		}catch (Exception e){
 			e.printStackTrace();
 		}finally{
-			try{
-				if(dbConnection!=null)
-					dbConnection.close();
-				if(preparedStatement!=null)
-					preparedStatement.close();
-			}catch(Exception e){
-				e.printStackTrace();
-			}
+			DaoCon.close(dbConnection, preparedStatement);
 		}
 	}
 
@@ -42,25 +35,19 @@ public class DaoPlat {
 		Plat plat = null;
 		Connection dbConnection = null ;
 		PreparedStatement preparedStatement = null;
+		ResultSet rs = null;
 		try{
 			dbConnection = DaoCon.getCon();
 			preparedStatement = dbConnection.prepareStatement(findQuery);
 			preparedStatement.setInt(1, id);
-			ResultSet rs = preparedStatement.executeQuery();
+			rs = preparedStatement.executeQuery();
 			while (rs.next()) {
 				plat = mapRes(rs);
 			}
 		}catch (Exception e){
 			e.printStackTrace();
 		}finally{
-			try{
-				if(dbConnection!=null)
-					dbConnection.close();
-				if(preparedStatement!=null)
-					preparedStatement.close();
-			}catch(Exception e){
-				e.printStackTrace();
-			}
+			DaoCon.close(dbConnection,preparedStatement,rs);
 		}
 		return plat;
 	}
@@ -76,14 +63,7 @@ public class DaoPlat {
 		}catch (Exception e){
 			e.printStackTrace();
 		}finally{
-			try{
-				if(dbConnection!=null)
-					dbConnection.close();
-				if(preparedStatement!=null)
-					preparedStatement.close();
-			}catch(Exception e){
-				e.printStackTrace();
-			}
+			DaoCon.close(dbConnection, preparedStatement);
 		}
 	}
 
@@ -102,14 +82,7 @@ public class DaoPlat {
 		}catch (Exception e){
 			e.printStackTrace();
 		}finally{
-			try{
-				if(dbConnection!=null)
-					dbConnection.close();
-				if(preparedStatement!=null)
-					preparedStatement.close();
-			}catch(Exception e){
-				e.printStackTrace();
-			}
+			DaoCon.close(dbConnection, preparedStatement);
 		}
 		
 	}
@@ -118,24 +91,18 @@ public class DaoPlat {
 		List<Plat> plats = new ArrayList<Plat>();
 		Connection dbConnection = null ;
 		PreparedStatement preparedStatement = null;
+		ResultSet rs = null;
 		try{
 			dbConnection = DaoCon.getCon();
 			preparedStatement = dbConnection.prepareStatement(getAllQuery);
-			ResultSet rs = preparedStatement.executeQuery();
+			rs = preparedStatement.executeQuery();
 			while (rs.next()) {
 				plats.add(mapRes(rs));
 			}
 		}catch (Exception e){
 			e.printStackTrace();
 		}finally{
-			try{
-				if(dbConnection!=null)
-					dbConnection.close();
-				if(preparedStatement!=null)
-					preparedStatement.close();
-			}catch(Exception e){
-				e.printStackTrace();
-			}
+			DaoCon.close(dbConnection, preparedStatement, rs);
 		}
 		return plats;
 	}
