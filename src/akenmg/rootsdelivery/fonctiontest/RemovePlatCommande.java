@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import akenmg.rootsdelivery.dao.DaoPlat;
 import akenmg.rootsdelivery.model.Commande;
+import akenmg.rootsdelivery.model.PlaCom;
 import akenmg.rootsdelivery.model.Plat;
 
 /**
@@ -34,12 +35,29 @@ public class RemovePlatCommande extends HttpServlet {
 		Plat plat = DaoPlat.find(Integer.parseInt(id));
 		Commande commande = (Commande)request.getSession().getAttribute("commande");
 		if(commande!=null){
+//			for(int i=0;i<commande.getPlacoms().size();i++){
+//				if(commande.getPlacoms().get(i).getPlat().getId()==plat.getId()){
+//					commande.getPlacoms().remove(i);
+//					break;
+//				}
+//			}
+			
 			for(int i=0;i<commande.getPlacoms().size();i++){
 				if(commande.getPlacoms().get(i).getPlat().getId()==plat.getId()){
-					commande.getPlacoms().remove(i);
-					break;
+					if(commande.getPlacoms().get(i).getQuantite()==1){
+						commande.getPlacoms().remove(i);
+						break;
+					}else{
+						commande.getPlacoms().get(i).removeQuantite(1);
+					}
 				}
 			}
+			
+//			for(PlaCom p : commande.getPlacoms()){
+//				if(p.getPlat().getId()==plat.getId()){
+//					if()
+//				}
+//			}
 		}else{
 			System.out.println("pat de commande disponible");
 			System.out.println("Créer une commande?");

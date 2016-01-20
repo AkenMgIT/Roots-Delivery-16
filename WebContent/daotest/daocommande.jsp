@@ -36,6 +36,7 @@
 		<table>
 			<tr>
 				<th>Produit</th>
+				<th>Qunatité</th>
 				<th>Prix</th>
 				<th>Enlever</th>
 <!-- 				<th>Quantité</th> -->
@@ -43,6 +44,7 @@
 			<%for(PlaCom p : commande.getPlacoms()){ %>
 			<tr>
 				<td><%=p.getPlat().getTitre() %></td>
+				<td><%=p.getQuantite() %></td>
 				<td><%=p.getPlat().getPrix() %></td>
 				<td><a href="RemovePlatCommande?id=<%=p.getPlat().getId() %>">Enlever</a></td>
 			</tr>
@@ -72,21 +74,7 @@
 			<td><a href="AddPlatCommande?id=<%= p.getId() %>">ajouter</a></td>
 		</tr>
 		<%} %>
-		
 	</table>
-<!-- 	<ul> -->
-<%-- 		<%for(Plat p : plats){ %> --%>
-<%-- 		<li><%=p.getTitre() %> : <a href="#">ajouter</a> - <a href="#">enlever</a></li> --%>
-<%-- 		<%} %> --%>
-<!-- 	</ul> -->
-	
-<!-- 	<form method="post" action="InitCommande_add">  -->
-<!-- 		<input type="text" name="titre" placeholder="titre">  -->
-<!-- 		<input type="text" name="description" placeholder="description">  -->
-<!-- 		<input type="text" name="prix" placeholder="prix">  -->
-<!-- 		<input type="text" name="img" placeholder="img" >  -->
-<!-- 		<input type="submit" value="insert">   -->
-<!-- 	</form> -->
 
 <hr>
 	<h2>GetAll Commande</h2>
@@ -95,14 +83,18 @@
 		commandes = DaoCommande.getAll();
 	%>
 	<%if(commandes.size()!=0){ %>
-	<table>
+	<table border="1">
 		<tr>
 			<th>id</th>
 			<th>client</th>
 			<th>adresse</th>
 			<th>date</th>
+			<th>etat</th>
 			<th>detail</th>
 			<th>delete</th>
+			<th>setAnnulée</th>
+			<th>setPayée</th>
+			<th>setEnCours</th>
 		</tr>
 	<%
 		for(Commande a : commandes){
@@ -112,8 +104,12 @@
 			<td><%= a.getClient().getId() %></td> 
 			<td><%= a.getAdresse()  %> </td> 
 			<td><%= a.getDate()  %> </td> 
+			<td><%= a.getEtat().toString()  %> </td> 
 			<td><a href="PlaComFind?id=<%= a.getId() %>">details</a></td>
 			<td><a href="DeleteCommande?id=<%= a.getId() %>">delete</a></td>
+			<td><a href="UpdateCommande?id=<%= a.getId() %>&action=<%= Commande.ETAT.ANNULLEE.toString() %>">Annuler</a></td>
+			<td><a href="UpdateCommande?id=<%= a.getId() %>&action=<%= Commande.ETAT.PAYEE.toString() %>">Payer</a></td>
+			<td><a href="UpdateCommande?id=<%= a.getId() %>&action=<%= Commande.ETAT.ENCOURS.toString() %>">En Cours</a></td>
 		</tr>
 	<% 
 		} 
@@ -131,11 +127,13 @@
 			<tr>
 				<th>Produit</th>
 				<th>Prix</th>
+				<th>Quantité</th>
 			</tr>
 			<%for(PlaCom p : commandeDetail.getPlacoms()){ %>
 			<tr>
 				<td><%=p.getPlat().getTitre() %></td>
 				<td><%=p.getPlat().getPrix() %></td>
+				<td><%=p.getQuantite() %></td>
 			</tr>
 			<%} %>
 		</table>
@@ -144,6 +142,10 @@
 		<%} %>
 	<%} %>
 	
-	
+<!-- 	<select name="etat"> -->
+<!-- 			<option value="ENCOURS">EN COURS</option> -->
+<!-- 			<option value="PAYEE">PAYEE</option> -->
+<!-- 			<option value="ANNULLEE">ANNULLEE</option> -->
+<!-- 		</select> -->
 </body>
 </html>

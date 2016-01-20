@@ -80,4 +80,13 @@ public class Commande {
 		this.etat = etat;
 	}
 	
+	public static Commande.ETAT stringToEnum(String str){
+		if(str.equals(Commande.ETAT.ENCOURS.toString())){
+			return Commande.ETAT.ENCOURS;
+		}else if(str.equals(Commande.ETAT.PAYEE.toString())){
+			return Commande.ETAT.PAYEE;
+		}else{
+			return Commande.ETAT.ANNULLEE;
+		}
+	}
 }	

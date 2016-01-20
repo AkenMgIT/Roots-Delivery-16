@@ -42,6 +42,7 @@ public class CreateCommande extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String idClient = request.getParameter("idClient");
 		String adresse = request.getParameter("adresse");
+		String etat = request.getParameter("etat");
 		System.out.println(idClient);
 		System.out.println(adresse);
 		Commande commande = (Commande)request.getSession().getAttribute("commande");
@@ -50,8 +51,6 @@ public class CreateCommande extends HttpServlet {
 			commande.setAdresse(adresse);
 			commande.setDate(new Date());
 			commande.setEtat(Commande.ETAT.ENCOURS);
-			System.out.println("size="+commande.getPlacoms().size());
-			System.out.println("date="+commande.getDate());
 			
 			DaoCommande.create(commande);
 		}

@@ -14,11 +14,12 @@ import akenmg.rootsdelivery.model.PlaCom;
 import akenmg.rootsdelivery.model.Plat;
 
 public class DaoCommande {
-	private static final String createQuery = "insert into COMMANDES (IDCLIENT, ADRESSECOMMANDE, DATECOMMANDE) values (?, ?, ?)";
+	private static final String createQuery = "insert into COMMANDES (IDCLIENT, ADRESSECOMMANDE, TIMECOMMANDE, ETATCOMMANDE) values (?, ?, ?, ?)";
 	private static final String findQuery = "SELECT * FROM COMMANDES WHERE IDCOMMANDE = ?";
 	private static final String deleteQuery = "DELETE FROM COMMANDES WHERE IDCOMMANDE = ?";
-	private static final String updateQuery = "UPDATE COMMANDES SET IDCLIENT=?,ADRESSECOMMANDE=?,DATECOMMANDE=? WHERE IDCOMMANDE=?";
-	private static final String getAllQuery = "SELECT * FROM COMMANDES";
+//	private static final String updateQuery = "UPDATE COMMANDES SET IDCLIENT=?,ADRESSECOMMANDE=?,TIMECOMMANDE=?,ETATCOMMANDE=? WHERE IDCOMMANDE=?";
+	private static final String updateQuery = "UPDATE COMMANDES SET ETATCOMMANDE=? WHERE IDCOMMANDE=?";
+	private static final String getAllQuery = "SELECT * FROM COMMANDES ORDER BY TIMECOMMANDE ASC";
 	
 	public static void create(Commande obj) {
 		Connection dbConnection = null ;
@@ -28,7 +29,8 @@ public class DaoCommande {
 			preparedStatement = dbConnection.prepareStatement(createQuery,Statement.RETURN_GENERATED_KEYS);
 			preparedStatement.setInt(1, obj.getClient().getId());
 			preparedStatement.setString(2, obj.getAdresse());
-			preparedStatement.setDate(3, new java.sql.Date(obj.getDate().getTime()) );
+			preparedStatement.setTimestamp(3, new java.sql.Timestamp(obj.getDate().getTime()) );
+			preparedStatement.setString(4, obj.getEtat().toString() );
 //			preparedStatement.executeUpdate();
 			
 			int affectedRows = preparedStatement.executeUpdate();
@@ -39,7 +41,7 @@ public class DaoCommande {
 
 	        try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
 	            if (generatedKeys.next()) {
-	            	System.out.println("ID of the last commande = "+generatedKeys.getLong(1));
+//	            	System.out.println("ID of the last commande = "+generatedKeys.getLong(1));
 	            	obj.setId(generatedKeys.getInt(1));
 	            	for(PlaCom p : obj.getPlacoms()){
 	            		p.setCommande(obj);
@@ -120,23 +122,38 @@ public class DaoCommande {
 		}
 	}
 
+//	public static void update(Commande obj) {
+//		Connection dbConnection = null ;
+//		PreparedStatement preparedStatement = null;
+//		try{
+//			dbConnection = DaoCon.getCon();
+//			preparedStatement = dbConnection.prepareStatement(updateQuery);
+//			preparedStatement.setInt(1, obj.getClient().getId());
+//			preparedStatement.setString(2, obj.getAdresse());
+//			preparedStatement.setDate(3, new java.sql.Date(obj.getDate().getTime()));
+//			preparedStatement.setString(4, obj.getEtat().toString());
+//			preparedStatement.setInt(5, obj.getId());
+//			preparedStatement.executeUpdate();
+//		}catch (Exception e){
+//			e.printStackTrace();
+//		}finally{
+//			DaoCon.close(dbConnection, preparedStatement);
+//		}
+//	}
 	public static void update(Commande obj) {
 		Connection dbConnection = null ;
 		PreparedStatement preparedStatement = null;
 		try{
 			dbConnection = DaoCon.getCon();
 			preparedStatement = dbConnection.prepareStatement(updateQuery);
-			preparedStatement.setInt(1, obj.getClient().getId());
-			preparedStatement.setString(2, obj.getAdresse());
-			preparedStatement.setDate(3, (Date) obj.getDate());
-			preparedStatement.setInt(4, obj.getId());
+			preparedStatement.setString(1, obj.getEtat().toString());
+			preparedStatement.setInt(2, obj.getId());
 			preparedStatement.executeUpdate();
 		}catch (Exception e){
 			e.printStackTrace();
 		}finally{
 			DaoCon.close(dbConnection, preparedStatement);
 		}
-		
 	}
 
 	public static List<Commande> getAll() {
@@ -165,7 +182,8 @@ public class DaoCommande {
 			commande.setId(rs.getInt("IDCOMMANDE"));
 			commande.setClient(DaoClient.find(rs.getInt("IDCLIENT")));
 			commande.setAdresse(rs.getString("ADRESSECOMMANDE"));
-			commande.setDate(rs.getDate("DATECOMMANDE"));
+			commande.setDate(rs.getTimestamp("TIMECOMMANDE"));
+			commande.setEtat(Commande.stringToEnum(rs.getString("ETATCOMMANDE")));
 		}catch(Exception e){
 			e.printStackTrace();
 		}
@@ -180,7 +198,8 @@ public class DaoCommande {
 				commande.setId(rs.getInt("IDCOMMANDE"));
 				commande.setClient(DaoClient.find(rs.getInt("IDCLIENT")));
 				commande.setAdresse(rs.getString("ADRESSECOMMANDE"));
-				commande.setDate(rs.getDate("DATECOMMANDE"));
+				commande.setDate(rs.getTimestamp("TIMECOMMANDE"));
+				commande.setEtat(Commande.stringToEnum(rs.getString("ETATCOMMANDE")));
 				commande.setPlacoms(DaoPlaCom.findByCommande(commande.getId()));
 			}catch(Exception e){
 				e.printStackTrace();
@@ -188,4 +207,5 @@ public class DaoCommande {
 			return commande;
 		}
 	}
+	
 }

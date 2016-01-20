@@ -9,7 +9,7 @@ import java.util.List;
 import akenmg.rootsdelivery.model.*;
 
 public class DaoPlaCom {
-	private static final String createQuery = "insert into COM_PLA (IDPLAT, IDCOMMANDE) values (?,?)";
+	private static final String createQuery = "insert into COM_PLA (IDPLAT, IDCOMMANDE, QTE) values (?,?,?)";
 //	private static final String findQuery = "SELECT * FROM PLATS WHERE IDPLAT = ?";
 	private static final String findByCommandeQuery = "SELECT * FROM COM_PLA WHERE IDCOMMANDE = ?";
 	private static final String deleteQuery = "DELETE FROM COM_PLA WHERE IDCOMMANDE = ?";
@@ -24,6 +24,7 @@ public class DaoPlaCom {
 			preparedStatement = dbConnection.prepareStatement(createQuery);
 			preparedStatement.setInt(1, obj.getPlat().getId());
 			preparedStatement.setInt(2, obj.getCommande().getId());
+			preparedStatement.setInt(3, obj.getQuantite());
 			preparedStatement.executeUpdate();
 		}catch (Exception e){
 			e.printStackTrace();
@@ -132,11 +133,7 @@ public class DaoPlaCom {
 		try{
 			plaCom.setPlat(DaoPlat.find(rs.getInt("IDPLAT")));
 			plaCom.setCommande(DaoCommande.find(rs.getInt("IDCOMMANDE")));
-//			plat.setId(rs.getInt("IDPLAT"));
-//			plat.setTitre(rs.getString("TITREPLAT"));
-//			plat.setDescription(rs.getString("DESCRIPTIONPLAT"));
-//			plat.setPrix(rs.getInt("PRIXPLAT"));
-//			plat.setImg(rs.getString("IMGPLAT"));
+			plaCom.setQuantite(rs.getInt("QTE"));
 		}catch(Exception e){
 			e.printStackTrace();
 		}

@@ -33,17 +33,30 @@ public class AddPlatCommande extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String id = request.getParameter("id");
 		Plat plat = DaoPlat.find(Integer.parseInt(id));
-		PlaCom placom = new PlaCom();
-		placom.setPlat(plat);
+		PlaCom placom = null;
 		Commande commande = (Commande)request.getSession().getAttribute("commande");
 		if(commande!=null){
-//			commande.getPlat().add(plat);
-			commande.getPlacoms().add(placom);
+			boolean isHere = false;
+			for(PlaCom p : commande.getPlacoms()){
+				if(p.getPlat().getId()==plat.getId()){
+					p.addQuantite(1);
+					isHere=true;
+					break;
+				}
+			}
+			if(!isHere){
+				placom = new PlaCom();
+				placom.setPlat(plat);
+				commande.getPlacoms().add(placom);
+				placom.setQuantite(1);
+			}
 		}else{
 			commande = new Commande();
 			request.getSession().setAttribute("commande", commande);
+			placom = new PlaCom();
+			placom.setPlat(plat);
+			placom.setQuantite(1);
 			commande.getPlacoms().add(placom);
-//			commande.getPlat().add(plat);
 		}
 		response.sendRedirect("daocommande.jsp");
 	}
