@@ -45,13 +45,13 @@ public class Login extends HttpServlet {
 		System.out.println(mdp);
 		Admin admin = null;
 		
-		if(LoginService.loginAdmin(login, mdp)){
-			request.setAttribute("message", "Login success");
-			admin = LoginService.findAdmin(login);
-			request.getSession().setAttribute("user", admin);
-		}else{
-			request.setAttribute("message", "Login fail");
-		}
+//		if(LoginService.loginAdmin(login, mdp)){
+//			request.setAttribute("message", "Login success");
+//			admin = LoginService.findAdmin(login);
+//			request.getSession().setAttribute("user", admin);
+//		}else{
+//			request.setAttribute("message", "Login fail");
+//		}
 		
 		
 		request.getRequestDispatcher("login.jsp").forward(request, response);

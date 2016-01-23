@@ -20,7 +20,7 @@ public class DaoCon {
 //        	user = prop.getProperty("user");
 //        	password = prop.getProperty("password");
         	driver = "org.postgresql.Driver";
-        	url = "jdbc:postgresql://localhost:5432/RootsDeliver-test-01";
+        	url = "jdbc:postgresql://localhost:5432/Roots-Delivery-Bd";
         	user = "postgres";
         	password = "123456";
             Class.forName(driver);
