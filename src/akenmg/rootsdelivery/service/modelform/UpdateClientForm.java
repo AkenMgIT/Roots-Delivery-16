@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import akenmg.rootsdelivery.model.Client;
 
-public class UpdateClientForm extends InscriptionForm{
+public class UpdateClientForm extends CreateClientForm{
 	private static final String CHAMP_ID    = "id";
     
 

@@ -109,7 +109,7 @@
             Formulaire Client
           </header>
           <div class="panel-body">
-            <form class="form-horizontal " method="post" action="">
+            <form class="form-horizontal " method="post" action="BoCreate-Client">
               <div class="form-group">
                 <label class="col-sm-2 control-label">Nom</label>
                 <div class="col-sm-10">
@@ -193,7 +193,8 @@
 	                <td class="text-center">
 	                  <div class="btn-group">
 	                    <a class="btn btn-primary" href="fiches/Fiche_Client?id=<%= c.getId() %>">Modifier/détails</a>
-	                    <a class="btn btn-danger" href="#<%= c.getId() %>">Supprimer</i></a>
+	                    <a class="btn btn-danger" href="BoDeleteClient?id=<%= c.getId() %>" onclick="return confirm('Action définitive,êtes vous sûr?')">Supprimer</i></a>
+<%-- 	                     --%>
 	                  </div>
 	                </td>
 	              </tr>

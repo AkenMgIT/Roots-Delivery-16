@@ -1,4 +1,4 @@
-package akenmg.rootsdelivery.controller.front.input;
+package akenmg.rootsdelivery.controller.back.action;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -7,22 +7,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import akenmg.rootsdelivery.model.Client;
-import akenmg.rootsdelivery.service.modelform.InscriptionForm;
+import akenmg.rootsdelivery.dao.DaoClient;
+import akenmg.rootsdelivery.service.DataAccess;
 
 /**
- * Servlet implementation class InscriptionInput
+ * Servlet implementation class BoDeleteClient
  */
-@WebServlet("/Inscription-Input")
-public class InscriptionInput extends HttpServlet {
+@WebServlet("/backoffice/BoDeleteClient")
+public class BoDeleteClient extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static String urlSuccess = "Commande-Client";
-	private static String urlFail = "Connexion";
+	private static String url = "Table_Clients";
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public InscriptionInput() {
+    public BoDeleteClient() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,21 +30,25 @@ public class InscriptionInput extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+//		System.out.println(request.getParameter("id"));
+		
+		String ids = request.getParameter("id");
+		int id = Integer.parseInt(ids);
+		
+		DataAccess.DeleteClient(id);
+		
+//		DaoClient.delete();
+		
+		
+		response.sendRedirect(url);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		InscriptionForm form = new InscriptionForm();
-		Client client = form.inscrireUtilisateur(request);
-		
-		request.setAttribute("form", form);
-		request.setAttribute("client", client);
-		
-		request.getRequestDispatcher(urlFail).forward(request, response);
+		// TODO Auto-generated method stub
+		doGet(request, response);
 	}
 
 }

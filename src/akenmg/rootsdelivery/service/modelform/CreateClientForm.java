@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import akenmg.rootsdelivery.model.Client;
 
-public class InscriptionForm {
+public class CreateClientForm {
 	protected static final String CHAMP_NOM    = "nom";
 	protected static final String CHAMP_PRENOM   = "prenom";
 	protected static final String CHAMP_TEL   = "telephone";
@@ -97,23 +97,42 @@ public class InscriptionForm {
     
     
 	protected void validationNom( String nom ) throws Exception {
-    	if ( nom != null && nom.length()>= 3) {
-    		if (nom.length()>32 ) {
-    			throw new Exception( "Le nom d'utilisateur ne doit pas dépasser les 32 caractères." );
-    		}
-    	} else {
-    		throw new Exception( "Le nom d'utilisateur doit contenir au moins 3 caractères.");
-    	}
+		if(nom != null){
+			if(nom.length()>= 3){
+				if (nom.length()>32 ) {
+	    			throw new Exception( "Le nom d'utilisateur ne doit pas dépasser les 32 caractères." );
+	    		}
+			}else{
+				throw new Exception( "Le nom d'utilisateur doit contenir au moins 3 caractères.");
+			}
+		}
+		
+//    	if ( nom != null && nom.length()>= 3) {
+//    		if (nom.length()>32 ) {
+//    			throw new Exception( "Le nom d'utilisateur ne doit pas dépasser les 32 caractères." );
+//    		}
+//    	} else {
+//    		throw new Exception( "Le nom d'utilisateur doit contenir au moins 3 caractères.");
+//    	}
     }
     
     protected void validationPrenom( String prenom ) throws Exception {
-    	if ( prenom != null && prenom.length() >= 3) {
-    		if (prenom.length()>32 ) {
-    			throw new Exception( "Le prenom d'utilisateur ne doit pas dépasser les 32 caractères." );
+    	if(prenom != null){
+    		if (prenom.length() >= 3) {
+    			if (prenom.length()>32 ) {
+    				throw new Exception( "Le prenom d'utilisateur ne doit pas dépasser les 32 caractères." );
+    			}
+    		} else {
+    			throw new Exception( "Le prenom d'utilisateur doit contenir au moins 2 caractères.");
     		}
-    	} else {
-    		throw new Exception( "Le prenom d'utilisateur doit contenir au moins 2 caractères.");
     	}
+//    	if ( prenom != null && prenom.length() >= 3) {
+//    		if (prenom.length()>32 ) {
+//    			throw new Exception( "Le prenom d'utilisateur ne doit pas dépasser les 32 caractères." );
+//    		}
+//    	} else {
+//    		throw new Exception( "Le prenom d'utilisateur doit contenir au moins 2 caractères.");
+//    	}
     }
     
     protected void validationTelephone( String telephone ) throws Exception {
@@ -127,8 +146,6 @@ public class InscriptionForm {
     		if(!matcher.matches()){
     			throw new Exception( "Format du numéro non valide,veuillez suivre l'exemple : +261 xxxxxxxxx" );
     		}
-    	} else {
-//    		throw new Exception( "Merci de saisir un telephone" );
     	}
     }
     

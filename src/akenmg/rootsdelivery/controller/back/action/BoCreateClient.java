@@ -1,4 +1,4 @@
-package akenmg.rootsdelivery.controller.back.fiche;
+package akenmg.rootsdelivery.controller.back.action;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -8,22 +8,22 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import akenmg.rootsdelivery.model.Client;
-import akenmg.rootsdelivery.model.view.ClientView;
 import akenmg.rootsdelivery.service.DataAccess;
-import akenmg.rootsdelivery.service.modelform.UpdateClientForm;
+import akenmg.rootsdelivery.service.modelform.CreateClientForm;
 
 /**
- * Servlet implementation class UpdateClientFiche
+ * Servlet implementation class BoCreateClient
  */
-@WebServlet("/backoffice/fiches/UpdateClientFiche")
-public class UpdateClientFiche extends HttpServlet {
+@WebServlet("/backoffice/BoCreate-Client")
+public class BoCreateClient extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static String url = "Fiche_Client";
+	private static String url = "Table_Clients";
+	
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UpdateClientFiche() {
+    public BoCreateClient() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -40,25 +40,16 @@ public class UpdateClientFiche extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-//		doGet(request, response);
-		
-		
-		UpdateClientForm form = new UpdateClientForm();
-		ClientView clientV = new ClientView(form.updateClient(request));
-		
-		
-		request.setAttribute("form", form);
+		CreateClientForm form = new CreateClientForm();
+		Client client = form.inscrireUtilisateur(request);
 		
 		if(form.isValide()){
-			DataAccess.UpdateClient(clientV);
-//			request.setAttribute("clientV", clientV);
-		}else{
-//			clientV = DataAccess.findClient(clientV.getId());
-//			request.setAttribute("clientV", clientV);
+			DataAccess.CreateClient(client);
 		}
-		request.setAttribute("clientV", clientV);
-//		
+		
+		request.setAttribute("form", form);
+		request.setAttribute("client", client);
+		
 		request.getRequestDispatcher(url).forward(request, response);
 	}
 

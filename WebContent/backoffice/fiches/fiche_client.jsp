@@ -74,7 +74,7 @@
     <!--header end-->
 
     <!--sidebar start-->
-    <jsp:include page="../_include/bo-side.jsp"></jsp:include>
+    <jsp:include page="bo-side.jsp"></jsp:include>
     <!--sidebar end-->
     <!-- sidebar menu end-->
   </div>
@@ -88,7 +88,7 @@
         <h3 class="page-header"><i class="fa fa-table"></i> Données</h3>
         <ol class="breadcrumb">
           <li><i class="fa fa-home"></i><a href="#">Home</a></li>
-          <li><i class="fa fa-table"></i><a href="../Table-Client">Clients</a></li>
+          <li><i class="fa fa-table"></i><a href="../Table_Clients">Clients</a></li>
           <li><i class="fa fa-file-text"></i>Fiche</li>
         </ol>
       </div>
@@ -101,7 +101,7 @@
             Fiche Client
           </header>
           <div class="panel-body">
-            <form class="form-horizontal " method="post" action="UpdateClientFiche">
+            <form class="form-horizontal " method="post" action="BoUpdateClient">
               <div class="form-group">
                 <label class="col-sm-2 control-label">ID</label>
                 <div class="col-sm-10">

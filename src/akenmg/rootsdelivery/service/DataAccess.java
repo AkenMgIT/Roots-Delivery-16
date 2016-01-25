@@ -27,4 +27,12 @@ public class DataAccess {
 	public static void UpdateClient(Client c){
 		DaoClient.update(c);
 	}
+	
+	public static void CreateClient(Client c){
+		DaoClient.create(c);
+	}
+	
+	public static void DeleteClient(int id){
+		DaoClient.delete(id);
+	}
 }
