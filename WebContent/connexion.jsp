@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -25,7 +26,7 @@
   
   <!-- Custom CSS -->
   <link rel="stylesheet" href="css/creative.css" type="text/css">
-  <link rel="stylesheet" href="css/custom.css" type="text/css">
+  <link rel="stylesheet" href="css/custom.min.css" type="text/css">
   
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -77,32 +78,47 @@
             <div class="panel">
               <div class="panel-body">
                 <legend>Inscription</legend>
-                <form class="form-horizontal" method="post" action="">
+                <form class="form-horizontal" method="post" action="Inscription-Input">
                   
                   <div class="form-group">
                     <div class="col-sm-12">
-                      <input type="text" class="form-control" placeholder="Votre nom">
+                      <input type="text" class="form-control" placeholder="Votre nom" name="nom" value="${!empty client.nom ? client.nom : ""}">
+                      <span class="help-block text-left text-primary">${form.erreurs['nom'] }</span>
                     </div>
                   </div>
                   <div class="form-group">
                     <div class="col-sm-12">
-                      <input type="text" class="form-control" placeholder="Votre prénom">
+                      <input type="text" class="form-control" placeholder="Votre prénom" name="prenom" value="${!empty client.prenom ? client.prenom : ""}">
+                      <span class="help-block text-left text-primary">${form.erreurs['prenom'] }</span>
                     </div>
                   </div>
                   <div class="form-group">
                     <div class="col-sm-12">
-                      <input type="text" class="form-control" placeholder="Votre numero de telephone">
+                      <input type="text" class="form-control" placeholder="Votre numero de telephone (ex: +261 0XX XX XXX XX)" name="telephone" value="${!empty client.numero ? client.numero : ""}" >
+                      <span class="help-block text-left text-primary">${form.erreurs['telephone'] }</span>
                     </div>
                   </div>
                   <div class="form-group">
                     <div class="col-sm-12">
-                      <input type="email" class="form-control" placeholder="Votre email*">
+                      <input type="email" class="form-control" placeholder="Votre email*" name="email" value="${!empty client.email ? client.email : ""}">
+                      <span class="help-block text-left text-primary">${form.erreurs['email'] }</span>
                     </div>
                   </div>
                   <div class="form-group">
                     <div class="col-sm-12">
-                      <input type="text"  class="form-control" placeholder="votre mot de passe*">
-                      <span class="help-block text-left"><small>le mot de passe doit être superieur à 6 characteres.</small></span>
+                      <input type="password"  class="form-control" placeholder="votre mot de passe* (6 caractères minimum)" name="motdepasse" >
+                      <span class="help-block text-left text-primary">${form.erreurs['motdepasse'] }</span>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-sm-12">
+                      <input type="password"  class="form-control" placeholder="Confirmez votre mot de passe*" name="confirmation">
+                      <span class="help-block text-left text-primary">${form.erreurs['confirmation'] }</span>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-sm-12">
+                    	<span class="text-left ${empty form.erreurs ? 'text-success' : 'text-danger'}">${form.resultat}</span>
                     </div>
                   </div>
                   <div class="form-group">

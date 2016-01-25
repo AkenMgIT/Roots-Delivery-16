@@ -2,29 +2,29 @@
       <div id="sidebar"  class="nav-collapse ">
         <!-- sidebar menu start-->
         <ul class="sidebar-menu">
-          <li class="active">
-            <a class="" href="index.html">
+          <li>
+            <a class="" href="DashBoard">
               <i class="icon_house_alt"></i>
               <span>Dashboard</span>
             </a>
           </li>
           
           <li>
-            <a class="" href="#">
+            <a class="" href="Table_Clients">
               <i class="icon_table"></i>
               <span>Clients</span>
             </a>
           </li>
           
           <li>
-            <a class="" href="#">
+            <a class="" href="Table_Plats">
               <i class="icon_table"></i>
               <span>Plats</span>
             </a>
           </li>
           
           <li>
-            <a class="" href="#">
+            <a class="" href="Table_Commandes">
               <i class="icon_table"></i>
               <span>Commandes</span>
             </a>
@@ -37,7 +37,7 @@
               <span class="menu-arrow arrow_carrot-right"></span>
             </a>
             <ul class="sub">
-              <li><a class="" href="form_component.html">Administrateurs</a></li>
+              <li><a class="" href="Table_Admins">Administrateurs</a></li>
             </ul>
           </li>
           
@@ -48,7 +48,7 @@
               <span class="menu-arrow arrow_carrot-right"></span>
             </a>
             <ul class="sub">
-              <li><a class="" href="general.html">Variables</a></li>
+              <li><a class="" href="#">Variables</a></li>
             </ul>
           </li>
           

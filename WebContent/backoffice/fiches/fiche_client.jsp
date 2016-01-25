@@ -88,7 +88,7 @@
         <h3 class="page-header"><i class="fa fa-table"></i> Données</h3>
         <ol class="breadcrumb">
           <li><i class="fa fa-home"></i><a href="#">Home</a></li>
-          <li><i class="fa fa-table"></i><a href="#">Clients</a></li>
+          <li><i class="fa fa-table"></i><a href="../Table-Client">Clients</a></li>
           <li><i class="fa fa-file-text"></i>Fiche</li>
         </ol>
       </div>
@@ -101,47 +101,60 @@
             Fiche Client
           </header>
           <div class="panel-body">
-            <form class="form-horizontal " method="get">
+            <form class="form-horizontal " method="post" action="UpdateClientFiche">
               <div class="form-group">
                 <label class="col-sm-2 control-label">ID</label>
                 <div class="col-sm-10">
-                  <input class="form-control" id="disabledInput" type="text" placeholder="N/A" disabled="" value="xxIDxx">
+                  <input class="form-control" type="text" placeholder="N/A" disabled="" value="${clientV.id }">
+                  <input type="hidden" name="id" value="${clientV.id }">
                 </div>
               </div>
               <div class="form-group">
                 <label class="col-sm-2 control-label">Nom</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" placeholder="Nom du client" value="variable">
+                  <input type="text" class="form-control" name="nom" placeholder="Nom du client" value="${clientV.nom }">
+                  <span class="text-left text-primary">${form.erreurs['nom'] }</span>
                 </div>
               </div>
               <div class="form-group">
                 <label class="col-sm-2 control-label">Prénom</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" placeholder="Prénom du client" value="variable">
+                  <input type="text" class="form-control" name="prenom" placeholder="Prénom du client" value="${clientV.prenom }">
+                  <span class="text-left text-warning">${form.erreurs['prenom'] }</span>
                 </div>
               </div>
               <div class="form-group">
                 <label class="col-sm-2 control-label">Numéro de Telephone</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" placeholder="ex : +261 03X XX XXX XX" value="variable">
+                  <input type="text" class="form-control" name="telephone" placeholder="ex : +261 03X XX XXX XX" value="${clientV.numero }">
+                  <span class="text-left text-warning">${form.erreurs['telephone'] }</span>
                 </div>
               </div>
               <div class="form-group">
                 <label class="col-sm-2 control-label">Adresse email*</label>
                 <div class="col-sm-10">
-                  <input type="email" class="form-control" placeholder="ex : xxxx.xxxx@xxxx.xx" value="variable">
+                  <input type="email" class="form-control" name="email" placeholder="ex : xxxx.xxxx@xxxx.xx" value="${clientV.email }">
+                  <span class="text-left text-warning">${form.erreurs['email'] }</span>
                 </div>
               </div>
               <div class="form-group">
                 <label class="col-sm-2 control-label">Mot de passe*</label>
                 <div class="col-sm-10">
-                  <input type="text"  class="form-control" placeholder="" value="variable">
-                  <span class="help-block">le mot de passe doit être superieur à 3 characteres.</span>
+                  <input type="password"  class="form-control" name="motdepasse" placeholder="" value="${clientV.mdp }">
+                  <span class="text-left text-warning">${form.erreurs['motdepasse'] }</span>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label">Confirmation*</label>
+                <div class="col-sm-10">
+                  <input type="password"  class="form-control" name="confirmation" placeholder="" value="${clientV.mdp }">
+                  <span class="text-left text-warning">${form.erreurs['motdepasse'] }</span>
                 </div>
               </div>
               <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
                   <button type="submit" class="btn btn-primary">Modifier</button>
+                  <span class="text-left ${empty form.erreurs ? 'text-success' : 'text-danger'}">${form.resultat}</span>
                 </div>
               </div>
 

@@ -1,6 +1,8 @@
 package akenmg.rootsdelivery.dao;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +14,24 @@ public class DaoClient {
 	private static final String findQuery = "SELECT * FROM CLIENTS WHERE IDCLIENT = ?";
 	private static final String deleteQuery = "DELETE FROM CLIENTS WHERE IDCLIENT = ?";
 	private static final String updateQuery = "UPDATE CLIENTS SET NOMCLIENT=?,PRENOMCLIENT=?,NUMEROCLIENT=?,EMAILCLIENT=?,MDPCLIENT=? WHERE IDCLIENT=?";
-	private static final String getAllQuery = "SELECT * FROM CLIENTS";
+	private static final String getAllQuery = "SELECT * FROM CLIENTS ORDER BY IDCLIENT DESC";
+	
+	private List<Client> clients = null;
+	
+	public List<Client> getClients() {
+		if(clients==null){
+			clients = DaoClient.getAll();
+		}
+		return clients;
+	}
+
+	public void setClients(List<Client> clients) {
+		this.clients = clients;
+	}
+
+	public DaoClient(){
+		
+	}
 	
 	public static void create(Client obj) {
 		Connection dbConnection = null ;
@@ -67,7 +86,6 @@ public class DaoClient {
 		}finally{
 			DaoCon.close(dbConnection, preparedStatement);
 		}
-		
 	}
 
 	public static void update(Client obj) {
@@ -79,6 +97,7 @@ public class DaoClient {
 			preparedStatement.setString(1, obj.getNom());
 			preparedStatement.setString(2, obj.getPrenom());
 			preparedStatement.setString(3, obj.getNumero());
+			
 			preparedStatement.setString(4, obj.getEmail());
 			preparedStatement.setString(5, obj.getMdp());
 			preparedStatement.setInt(6, obj.getId());

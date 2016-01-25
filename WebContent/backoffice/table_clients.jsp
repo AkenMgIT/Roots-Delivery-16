@@ -1,3 +1,12 @@
+<%@page import="akenmg.rootsdelivery.model.view.ClientView"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="akenmg.rootsdelivery.model.*"%>
+<%@page import="java.util.List"%>
+<%
+	List<ClientView> clients = (ArrayList<ClientView>)request.getAttribute("clients");
+
+%>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -94,47 +103,59 @@
     </div>
     <!-- page start-->
     <div class="row">
-      <div class="col-lg-6">
+      <div class="col-lg-offset-3 col-lg-6">
         <section class="panel">
           <header class="panel-heading">
             Formulaire Client
           </header>
           <div class="panel-body">
-            <form class="form-horizontal " method="get">
+            <form class="form-horizontal " method="post" action="">
               <div class="form-group">
                 <label class="col-sm-2 control-label">Nom</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" placeholder="Nom du client">
+                  <input type="text" class="form-control" name="nom" placeholder="Nom du client" value="${!empty client.nom ? client.nom : ""}">
+                  <span class="text-left text-primary">${form.erreurs['nom'] }</span>
                 </div>
               </div>
               <div class="form-group">
                 <label class="col-sm-2 control-label">Prénom</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" placeholder="Prénom du client">
+                  <input type="text" class="form-control" name="prenom" placeholder="Prénom du client" value="${!empty client.prenom ? client.prenom : ""}" >
+                  <span class="text-left text-warning">${form.erreurs['prenom'] }</span>
                 </div>
               </div>
               <div class="form-group">
                 <label class="col-sm-2 control-label">Numéro de Telephone</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" placeholder="ex : +261 03X XX XXX XX">
+                  <input type="text" class="form-control" name="telephone" placeholder="ex : +261 03X XX XXX XX" value="${!empty client.numero ? client.numero : ""}">
+                  <span class="text-left text-warning">${form.erreurs['telephone'] }</span>
                 </div>
               </div>
               <div class="form-group">
                 <label class="col-sm-2 control-label">Adresse email*</label>
                 <div class="col-sm-10">
-                  <input type="email" class="form-control" placeholder="ex : xxxx.xxxx@xxxx.xx">
+                  <input type="email" class="form-control" name="email" placeholder="ex : xxxx.xxxx@xxxx.xx" value="${!empty client.email ? client.email : ""}">
+                  <span class="text-left text-warning">${form.erreurs['email'] }</span>
                 </div>
               </div>
               <div class="form-group">
                 <label class="col-sm-2 control-label">Mot de passe*</label>
                 <div class="col-sm-10">
-                  <input type="password"  class="form-control" placeholder="">
-                  <span class="help-block">le mot de passe doit être superieur à 3 characteres.</span>
+                  <input type="password"  class="form-control" name="motdepasse" placeholder="">
+                  <span class="text-left text-warning">${form.erreurs['motdepasse'] }</span>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label">Confirmation*</label>
+                <div class="col-sm-10">
+                  <input type="password"  class="form-control" name="confirmation" placeholder="">
+                  <span class="text-left text-warning">${form.erreurs['motdepasse'] }</span>
                 </div>
               </div>
               <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
                   <button type="submit" class="btn btn-primary">Ajouter</button>
+                  <span class="text-left ${empty form.erreurs ? 'text-success' : 'text-danger'}">${form.resultat}</span>
                 </div>
               </div>
               
@@ -162,18 +183,22 @@
                 <th><i class="icon_mobile"></i> Telephone</th>
                 <th class="text-center"><i class="icon_cogs"></i> Action</th>
               </tr>
-              <tr>
-                <td>variable</td>
-                <td>variable</td>
-                <td>variable</td>
-                <td>variable</td>
-                <td class="text-center">
-                  <div class="btn-group">
-                    <a class="btn btn-primary" href="#">Modifier/détails</a>
-                    <a class="btn btn-danger" href="#">Supprimer</i></a>
-                  </div>
-                </td>
-              </tr>
+              <% if(clients!=null && !clients.isEmpty()){
+	              for(Client c : clients){%>
+	              <tr>
+	                <td><%=c.getId() %></td>
+	                <td><%=c.getNom() %> <%=c.getPrenom() %></td>
+	                <td><%=c.getEmail() %></td>
+	                <td><%=c.getNumero() %></td>
+	                <td class="text-center">
+	                  <div class="btn-group">
+	                    <a class="btn btn-primary" href="fiches/Fiche_Client?id=<%= c.getId() %>">Modifier/détails</a>
+	                    <a class="btn btn-danger" href="#<%= c.getId() %>">Supprimer</i></a>
+	                  </div>
+	                </td>
+	              </tr>
+              	<%}%>
+              <%}%>
             </tbody>
           </table>
         </section>
