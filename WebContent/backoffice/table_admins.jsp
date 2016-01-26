@@ -1,3 +1,11 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="akenmg.rootsdelivery.model.view.AdminView"%>
+<%@page import="java.util.List"%>
+<%
+	List<AdminView> admins = (ArrayList<AdminView>)request.getAttribute("admins");
+
+%>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -87,7 +95,7 @@
       <div class="col-lg-12">
         <h3 class="page-header"><i class="fa fa-table"></i> Données</h3>
         <ol class="breadcrumb">
-          <li><i class="fa fa-home"></i><a href="index.html">Home</a></li>
+          <li><i class="fa fa-home"></i><a href="Dashboard">Home</a></li>
           <li><i class="fa fa-th-list"></i>Admins</li>
         </ol>
       </div>
@@ -100,24 +108,33 @@
             Formulaire Admin
           </header>
           <div class="panel-body">
-            <form class="form-horizontal " method="get">
+            <form class="form-horizontal " method="post" action="BoCreateAdmin">
               
               <div class="form-group">
                 <label class="col-sm-2 control-label">Login</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" placeholder="Login">
+                  <input type="text" class="form-control" name="login" placeholder="Login" value="${admin.login }">
+                  <span class="text-left text-primary">${form.erreurs['login'] }</span>
                 </div>
               </div>
               <div class="form-group">
                 <label class="col-sm-2 control-label">Mot de Passe</label>
                 <div class="col-sm-10">
-                  <input type="password" class="form-control" >
+                  <input type="password" name="motdepasse" class="form-control" placeholder="mot de passe" value="${admin.mdp }">
+                  <span class="text-left text-primary">${form.erreurs['motdepasse'] }</span>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label">Confirmation</label>
+                <div class="col-sm-10">
+                  <input type="password" name="confirmation" class="form-control" value="${admin.mdp }">
                 </div>
               </div>
               
               <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
                   <button type="submit" class="btn btn-primary">Ajouter</button>
+                  <span class="text-left ${empty form.erreurs ? 'text-success' : 'text-danger'}">${form.resultat}</span>
                 </div>
               </div>
               
@@ -135,18 +152,24 @@
           <table class="table table-striped table-advance table-hover">
             <tbody>
               <tr>
-                <th><i class="icon_document_alt"></i> Login</th>
+                <th><i class="icon_document_alt"></i> ID</th>
+                <th><i class="icon_profile"></i> Login</th>
                 <th class="text-center"><i class="icon_cogs"></i> Action</th>
               </tr>
-              <tr>
-                <td>variable</td>
-                <td class="text-center">
-                  <div class="btn-group">
-                    <a class="btn btn-primary" href="#">Détails</a>
-                    <a class="btn btn-danger" href="#">Supprimer</i></a>
-                  </div>
-                </td>
-              </tr>
+              <%if(admins!=null && !admins.isEmpty()){ %>
+              	<%for(AdminView a : admins){%>
+	              <tr>
+	                <td><%=a.getId() %></td>
+	                <td><%=a.getLogin() %></td>
+	                <td class="text-center">
+	                  <div class="btn-group">
+	                    <a class="btn btn-primary" href="fiches/Fiche_Admin?id=<%=a.getId()%>">Détails</a>
+	                    <a class="btn btn-danger" href="BoDeleteAdmin?id=<%=a.getId()%>">Supprimer</i></a>
+	                  </div>
+	                </td>
+	              </tr>
+	              <%} %>
+              <%} %>
             </tbody>
           </table>
         </section>

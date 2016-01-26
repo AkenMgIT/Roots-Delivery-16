@@ -12,8 +12,6 @@ import akenmg.rootsdelivery.model.Client;
 public class UpdateClientForm extends CreateClientForm{
 	private static final String CHAMP_ID    = "id";
     
-
-
 	public Client updateClient( HttpServletRequest request ) {
 		String id = getValeurChamp( request, CHAMP_ID );
     	String nom = getValeurChamp( request, CHAMP_NOM );
@@ -65,24 +63,14 @@ public class UpdateClientForm extends CreateClientForm{
 
 
         if ( erreurs.isEmpty() ) {
-            resultat = "Update Form Valide";
+            resultat = "Update Client Valide";
             this.setValide(true);
         } else {
-            resultat = "Update Form Valide invalide";
+            resultat = "Update Client invalide";
             this.setValide(false);
         }
 
         return client;
     }
     
-    
-//	private void validationId( String id ) throws Exception {
-//		if ( id != null) {
-//			if (nom.length()>32 ) {
-//				throw new Exception( "Le nom d'utilisateur ne doit pas dépasser les 32 caractères." );
-//			}
-//		} else {
-//			throw new Exception( "l'ID est null");
-//		}
-//	}
 }

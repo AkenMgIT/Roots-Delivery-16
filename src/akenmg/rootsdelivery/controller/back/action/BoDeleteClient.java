@@ -30,16 +30,10 @@ public class BoDeleteClient extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		System.out.println(request.getParameter("id"));
-		
 		String ids = request.getParameter("id");
 		int id = Integer.parseInt(ids);
 		
 		DataAccess.DeleteClient(id);
-		
-//		DaoClient.delete();
-		
-		
 		response.sendRedirect(url);
 	}
 

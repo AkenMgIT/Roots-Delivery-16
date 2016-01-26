@@ -3,8 +3,11 @@ package akenmg.rootsdelivery.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import akenmg.rootsdelivery.dao.DaoAdmin;
 import akenmg.rootsdelivery.dao.DaoClient;
+import akenmg.rootsdelivery.model.Admin;
 import akenmg.rootsdelivery.model.Client;
+import akenmg.rootsdelivery.model.view.AdminView;
 import akenmg.rootsdelivery.model.view.ClientView;
 
 public class DataAccess {
@@ -34,5 +37,29 @@ public class DataAccess {
 	
 	public static void DeleteClient(int id){
 		DaoClient.delete(id);
+	}
+	
+	public static List<AdminView> GetAllAdmin(){
+		List<AdminView> admins = new ArrayList<AdminView>();
+		for(Admin a : DaoAdmin.getAll()){
+			admins.add(new AdminView(a));
+		}
+		return admins;
+	}
+	
+	public static AdminView findAdmin(int id){
+		AdminView admin = new AdminView( DaoAdmin.find(id) );
+		return admin;
+	}
+	
+	public static void UpdateAdmin(Admin admin){
+		DaoAdmin.update(admin);
+	}
+	
+	public static void CreateAdmin(Admin admin){
+		DaoAdmin.create(admin);
+	}
+	public static void DeleteAdmin(int id){
+		DaoAdmin.delete(id);
 	}
 }

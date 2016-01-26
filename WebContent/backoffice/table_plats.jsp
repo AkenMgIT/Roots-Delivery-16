@@ -87,7 +87,7 @@
       <div class="col-lg-12">
         <h3 class="page-header"><i class="fa fa-table"></i> Données</h3>
         <ol class="breadcrumb">
-          <li><i class="fa fa-home"></i><a href="index.html">Home</a></li>
+          <li><i class="fa fa-home"></i><a href="Dashboard">Home</a></li>
           <li><i class="fa fa-th-list"></i>Plats</li>
         </ol>
       </div>
@@ -100,24 +100,24 @@
             Formulaire Plat
           </header>
           <div class="panel-body">
-            <form class="form-horizontal " method="get">
+            <form class="form-horizontal " method="post" action="BoCreatePlat">
               <div class="form-group">
                 <label class="col-sm-2 control-label">Label</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" placeholder="Label du plat">
+                  <input type="text" class="form-control" placeholder="Label du plat" value="${plat.titre }">
                 </div>
               </div>
               <div class="form-group">
                 <label class="col-sm-2 control-label">Description</label>
                 <div class="col-sm-10">
                   <!-- <input type="text-area" class="form-control" placeholder="Description du plat"> -->
-                  <textarea class="form-control" rows="3" id="comment"></textarea>
+                  <textarea class="form-control" rows="3" id="comment">${plat.description }</textarea>
                 </div>
               </div>
               <div class="form-group">
                 <label class="col-sm-2 control-label">Prix</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" placeholder="En Ariary  ">
+                  <input type="text" class="form-control" placeholder="En Ariary" value="${plat.prix }">
                 </div>
               </div>
               <div class="form-group">

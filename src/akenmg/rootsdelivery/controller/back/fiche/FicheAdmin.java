@@ -7,6 +7,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import akenmg.rootsdelivery.model.view.AdminView;
+import akenmg.rootsdelivery.model.view.ClientView;
+import akenmg.rootsdelivery.service.DataAccess;
+
 /**
  * Servlet implementation class FicheAdmin
  */
@@ -26,6 +30,13 @@ public class FicheAdmin extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String ids = request.getParameter("id");
+		int id = Integer.parseInt(ids);
+		
+		AdminView admin = DataAccess.findAdmin(id);
+		
+		request.setAttribute("admin", admin);
+		
 		request.getRequestDispatcher(url).forward(request, response);
 	}
 
@@ -33,7 +44,7 @@ public class FicheAdmin extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
+		request.getRequestDispatcher(url).forward(request, response);
 	}
 
 }
