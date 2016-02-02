@@ -46,7 +46,7 @@
 				<td><%=p.getPlat().getTitre() %></td>
 				<td><%=p.getQuantite() %></td>
 				<td><%=p.getPlat().getPrix() %></td>
-				<td><a href="RemovePlatCommande?id=<%=p.getPlat().getId() %>">Enlever</a></td>
+				<td><a href="EnleverPlatCommande?id=<%=p.getPlat().getId() %>">Enlever</a></td>
 			</tr>
 			<%} %>
 		</table>

@@ -33,9 +33,10 @@ public class TableCommandes extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		test
+		List<PlatView> plats = DataAccess.getAllPlat();
 		List<CommandeView> commandes = DataAccess.getAllCommande(false);
 		request.setAttribute("commandes", commandes);
+		request.setAttribute("plats", plats);
 		request.getRequestDispatcher(url).forward(request, response);
 	}
 

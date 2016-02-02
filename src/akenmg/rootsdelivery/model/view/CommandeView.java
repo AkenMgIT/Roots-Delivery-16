@@ -12,4 +12,5 @@ public class CommandeView extends Commande{
 		this.setPlacoms(c.getPlacoms());
 		this.setPlat(c.getPlat());
 	}
+	
 }
