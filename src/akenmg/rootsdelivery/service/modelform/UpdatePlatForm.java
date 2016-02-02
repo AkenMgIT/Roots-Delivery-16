@@ -2,21 +2,19 @@ package akenmg.rootsdelivery.service.modelform;
 
 import javax.servlet.http.HttpServletRequest;
 
-import akenmg.rootsdelivery.model.Admin;
 import akenmg.rootsdelivery.model.Plat;
 
-public class CreatePlatForm extends ModelForm{
-	protected static final String CHAMP_TITRE    = "titre";
-	protected static final String CHAMP_DESCRIPTION   = "description";
-	protected static final String CHAMP_PRIX   = "prix";
+public class UpdatePlatForm extends CreatePlatForm{
+	private static final String CHAMP_ID    = "id";
 	
 	public Plat ajoutPlat( HttpServletRequest request ) { 
+		String id = getValeurChamp( request, CHAMP_ID );
 		String titre = getValeurChamp( request, CHAMP_TITRE );
     	String description = getValeurChamp( request, CHAMP_DESCRIPTION );
     	String prix = getValeurChamp( request, CHAMP_PRIX );
 		
     	Plat plat = new Plat();
-		
+		plat.setId(Integer.parseInt(id));
 		try {
     		validationTitrePlat(titre);
     	} catch ( Exception e ) {
@@ -44,13 +42,14 @@ public class CreatePlatForm extends ModelForm{
     	}
     	
     	if ( erreurs.isEmpty() ) {
-            resultat = "Insertion Plat Valide";
+            resultat = "Update Plat Valide";
             this.setValide(true);
         } else {
-            resultat = "Insertion Plat invalide";
+            resultat = "Update Plat invalide";
             this.setValide(false);
         }
 		
 		return plat;
 	}
+	
 }

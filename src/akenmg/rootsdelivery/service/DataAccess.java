@@ -5,10 +5,13 @@ import java.util.List;
 
 import akenmg.rootsdelivery.dao.DaoAdmin;
 import akenmg.rootsdelivery.dao.DaoClient;
+import akenmg.rootsdelivery.dao.DaoPlat;
 import akenmg.rootsdelivery.model.Admin;
 import akenmg.rootsdelivery.model.Client;
+import akenmg.rootsdelivery.model.Plat;
 import akenmg.rootsdelivery.model.view.AdminView;
 import akenmg.rootsdelivery.model.view.ClientView;
+import akenmg.rootsdelivery.model.view.PlatView;
 
 public class DataAccess {
 	public static List<Client> getAllClients(){
@@ -61,5 +64,28 @@ public class DataAccess {
 	}
 	public static void DeleteAdmin(int id){
 		DaoAdmin.delete(id);
+	}
+	
+	public static List<PlatView> getAllPlat(){
+		List<PlatView> plats = new ArrayList<PlatView>();
+		for(Plat p : DaoPlat.getAll()){
+			plats.add(new PlatView(p));
+		}
+		return plats;
+	}
+	
+	public static PlatView findPlat(int id){
+		PlatView plat = new PlatView(DaoPlat.find(id));
+		return plat;
+	}
+	
+	public static void createPlat(Plat plat){
+		DaoPlat.create(plat);
+	}
+	public static void deletePlat(int id){
+		DaoPlat.delete(id);
+	}
+	public static void updatePlat(Plat plat){
+		DaoPlat.update(plat);
 	}
 }

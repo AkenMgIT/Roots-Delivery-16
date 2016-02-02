@@ -1,4 +1,4 @@
-package akenmg.rootsdelivery.controller.back.fiche;
+package akenmg.rootsdelivery.controller.back.action;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -7,21 +7,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import akenmg.rootsdelivery.model.view.PlatView;
 import akenmg.rootsdelivery.service.DataAccess;
 
 /**
- * Servlet implementation class FichePlat
+ * Servlet implementation class BoDeletePlat
  */
-@WebServlet("/backoffice/fiches/Fiche_Plat")
-public class FichePlat extends HttpServlet {
+@WebServlet("/backoffice/BoDeletePlat")
+public class BoDeletePlat extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static String url = "fiche_plat.jsp";
+	private static String url = "Table_Plats";
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public FichePlat() {
+    public BoDeletePlat() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,11 +32,8 @@ public class FichePlat extends HttpServlet {
 		String ids = request.getParameter("id");
 		int id = Integer.parseInt(ids);
 		
-		PlatView plat = DataAccess.findPlat(id);
-		
-		request.setAttribute("plat", plat);
-		
-		request.getRequestDispatcher(url).forward(request, response);
+		DataAccess.deletePlat(id);
+		response.sendRedirect(url);
 	}
 
 	/**
@@ -45,8 +41,7 @@ public class FichePlat extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-//		doGet(request, response);
-		request.getRequestDispatcher(url).forward(request, response);
+		doGet(request, response);
 	}
 
 }

@@ -101,6 +101,43 @@ public class ModelForm {
             throw new Exception( "Merci de saisir et confirmer votre mot de passe." );
         }
     }
+    
+    protected void validationTitrePlat( String titre ) throws Exception {
+		if(titre != null){
+			if(titre.length()>= 3){
+				if (titre.length()>32 ) {
+	    			throw new Exception( "Le titre du plat ne doit pas dépasser les 32 caractères.");
+	    		}
+			}else{
+				throw new Exception( "Le titre du plat doit contenir au moins 3 caractères.");
+			}
+		}else{
+			throw new Exception( "Le titre du plat est obligatoir");
+		}
+	}
+    protected void validationDescription( String description ) throws Exception {
+    	if(description != null){
+    		
+    	}else{
+    		
+    	}
+    }
+
+	protected void validationPrix(String prix) throws Exception {
+		String regex = "\\d+";
+		Pattern pattern = Pattern.compile(regex);
+		Matcher matcher = pattern.matcher(prix);
+		if (prix != null) {
+			if(prix.isEmpty()){
+				throw new Exception("Le prix doit être spécifié");
+			}
+			if (!matcher.matches()) {
+				throw new Exception("Le prix n'est pas un chiffre.");
+			}
+		} else {
+			throw new Exception("Le prix doit être spécifié");
+		}
+	}
 
     protected void setErreur( String champ, String message ) {
         erreurs.put( champ, message );

@@ -44,7 +44,7 @@ public class BoCreateClient extends HttpServlet {
 		Client client = form.inscrireUtilisateur(request);
 		
 		if(form.isValide()){
-			DataAccess.CreateClient(client);
+//			DataAccess.CreateClient(client);
 		}
 		
 		request.setAttribute("form", form);

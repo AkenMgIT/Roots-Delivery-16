@@ -1,11 +1,11 @@
 package akenmg.rootsdelivery.model;
 
 public class Plat {
-	private int id;
-	private String titre;
-	private String description;
-	private int prix;
-	private String img;
+	protected int id;
+	protected String titre;
+	protected String description;
+	protected int prix;
+	protected String img;
 	
 	public Plat() {
 		super();
@@ -45,6 +45,9 @@ public class Plat {
 		this.prix = prix;
 	}
 	public String getImg() {
+//		if(img==null){
+//			return "N/A";
+//		}
 		return img;
 	}
 	public void setImg(String img) {
