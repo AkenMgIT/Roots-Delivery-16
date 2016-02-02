@@ -88,7 +88,7 @@
         <h3 class="page-header"><i class="fa fa-table"></i> Données</h3>
         <ol class="breadcrumb">
           <li><i class="fa fa-home"></i><a href="#">Home</a></li>
-          <li><i class="fa fa-table"></i><a href="#">Admins</a></li>
+          <li><i class="fa fa-table"></i><a href="Table_Admins">Admins</a></li>
           <li><i class="fa fa-file-text"></i>Fiche</li>
         </ol>
       </div>
