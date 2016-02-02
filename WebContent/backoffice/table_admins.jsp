@@ -1,5 +1,5 @@
-<%@page import="java.util.ArrayList"%>
 <%@page import="akenmg.rootsdelivery.model.view.AdminView"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
 <%
 	List<AdminView> admins = (ArrayList<AdminView>)request.getAttribute("admins");

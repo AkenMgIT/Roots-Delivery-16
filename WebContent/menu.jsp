@@ -73,7 +73,7 @@
           <div class="panel">
             <div class="panel-body">
               <h4><%=plats.get(i).getTitre() %> <span class="pull-right"><%=plats.get(i).getPrix() %> Ar</span></h4>
-              <em>Exasperer fillettes tu cuirasses un battirent oh citadelle cependant. Etendards du on gachettes superieur eperonnes.</em>
+              <em><%=plats.get(i).getDescription() %></em>
             </div>
           </div>
         <%} %>
@@ -86,7 +86,7 @@
           <div class="panel">
             <div class="panel-body">
               <h4><%=plats.get(i).getTitre() %> <span class="pull-right"><%=plats.get(i).getPrix() %> Ar</span></h4>
-              <em>Grandes fureurs partout si la qu. Maintenant partageait ni te je ah remplirent. Poil ici rien age sans ifs.</em>
+              <em><%=plats.get(i).getDescription() %></em>
             </div>
           </div>
         <%} %>
