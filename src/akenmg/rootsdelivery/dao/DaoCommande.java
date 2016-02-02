@@ -175,6 +175,25 @@ public class DaoCommande {
 		}
 		return commandes;
 	}
+	public static List<Commande> getAll(boolean bool) {
+		List<Commande> commandes = new ArrayList<Commande>();
+		Connection dbConnection = null ;
+		PreparedStatement preparedStatement = null;
+		ResultSet rs = null;
+		try{
+			dbConnection = DaoCon.getCon();
+			preparedStatement = dbConnection.prepareStatement(getAllQuery);
+			rs = preparedStatement.executeQuery();
+			while (rs.next()) {
+				commandes.add(mapRes(rs,bool));
+			}
+		}catch (Exception e){
+			e.printStackTrace();
+		}finally{
+			DaoCon.close(dbConnection, preparedStatement, rs);
+		}
+		return commandes;
+	}
 
 	private static Commande mapRes(ResultSet rs) {
 		Commande commande = new Commande();

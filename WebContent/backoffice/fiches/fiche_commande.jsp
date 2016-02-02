@@ -88,7 +88,7 @@
         <h3 class="page-header"><i class="fa fa-table"></i> Détails Commande</h3>
         <ol class="breadcrumb">
           <li><i class="fa fa-home"></i><a href="#">Home</a></li>
-          <li><i class="fa fa-table"></i><a href="#">Commandes</a></li>
+          <li><i class="fa fa-table"></i><a href="../Table_Commandes">Commandes</a></li>
           <li><i class="fa fa-file-text"></i>Fiche</li>
         </ol>
       </div>
@@ -134,23 +134,23 @@
             <table class="table table-advance table-hover table-bordered">
               <tr>
                 <td>ID</td>
-                <td>xxIDxx  </td>
+                <td>${commande.id }  </td>
               </tr>
               <tr>
                 <td>Client</td>
-                <td>Wawawa wawa  </td>
+                <td>${commande.client.nom } ${commande.client.prenom }</td>
               </tr>
               <tr>
                 <td>Adresse</td>
-                <td>wawawwawawa</td>
+                <td>${commande.adresse }</td>
               </tr>
               <tr>
                 <td>Date</td>
-                <td>2016/01/01 - 08:00:00</td>
+                <td>${commande.date }</td>
               </tr>
               <tr>
                 <td>Etat</td>
-                <td>Payée</td>
+                <td>${commande.etat }</td>
               </tr>
             </table>
 

@@ -1,3 +1,11 @@
+
+<%@page import="java.util.ArrayList"%>
+<%@page import="akenmg.rootsdelivery.model.view.CommandeView"%>
+<%@page import="java.util.List"%>
+<%
+	List<CommandeView> commandes = (ArrayList<CommandeView>)request.getAttribute("commandes");
+
+%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -210,24 +218,28 @@
                 <th><i class="icon_cogs"></i> Etat</th>
                 <th class="text-center"><i class="icon_cogs"></i> Action</th>
               </tr>
+              <% if(commandes!=null && !commandes.isEmpty()){
+	              for(CommandeView c : commandes){%>
               <tr>
-                <td>variable</td>
-                <td>variable</td>
-                <td>variable</td>
-                <td>variable</td>
-                <td>variable</td>
+                <td><%=c.getId() %></td>
+                <td><%=c.getClient().getNom() %> <%=c.getClient().getPrenom() %></td>
+                <td><%=c.getAdresse() %></td>
+                <td><%=c.getDate() %></td>
+                <td><%=c.getEtat().toString() %></td>
                 <td class="text-center">
                   <div class="btn-group">
-                    <a class="btn btn-primary" href="#">Détails</a>
-                    <a class="btn btn-danger" href="#">Supprimer</i></a>
+                    <a class="btn btn-primary" href="fiches/Fiche_Commande?id=<%=c.getId() %>">Détails</a>
+                    <a class="btn btn-danger" href="#?id=<%=c.getId() %>">Supprimer</i></a>
                   </div>
                   <div class="btn-group">
-                    <a class="btn btn-warning" href="#">En Cours</i></a>
-                    <a class="btn btn-success" href="#">Payée</i></a>
-                    <a class="btn btn-danger" href="#">Annuler</i></a>
+                    <a class="btn btn-warning" href="#?id=<%=c.getId() %>">En Cours</i></a>
+                    <a class="btn btn-success" href="#?id=<%=c.getId() %>">Payée</i></a>
+                    <a class="btn btn-danger" href="#?id=<%=c.getId() %>">Annuler</i></a>
                   </div>
                 </td>
               </tr>
+              <%	}
+	           }%>
             </tbody>
           </table>
         </section>

@@ -5,12 +5,15 @@ import java.util.List;
 
 import akenmg.rootsdelivery.dao.DaoAdmin;
 import akenmg.rootsdelivery.dao.DaoClient;
+import akenmg.rootsdelivery.dao.DaoCommande;
 import akenmg.rootsdelivery.dao.DaoPlat;
 import akenmg.rootsdelivery.model.Admin;
 import akenmg.rootsdelivery.model.Client;
+import akenmg.rootsdelivery.model.Commande;
 import akenmg.rootsdelivery.model.Plat;
 import akenmg.rootsdelivery.model.view.AdminView;
 import akenmg.rootsdelivery.model.view.ClientView;
+import akenmg.rootsdelivery.model.view.CommandeView;
 import akenmg.rootsdelivery.model.view.PlatView;
 
 public class DataAccess {
@@ -87,5 +90,24 @@ public class DataAccess {
 	}
 	public static void updatePlat(Plat plat){
 		DaoPlat.update(plat);
+	}
+	
+	public static List<CommandeView> getAllCommande(){
+		List<CommandeView> commandes = new ArrayList<CommandeView>();
+		for(Commande c : DaoCommande.getAll()){
+			commandes.add(new CommandeView(c));
+		}
+		return commandes;
+	}
+	public static List<CommandeView> getAllCommande(boolean bool){
+		List<CommandeView> commandes = new ArrayList<CommandeView>();
+		for(Commande c : DaoCommande.getAll(bool)){
+			commandes.add(new CommandeView(c));
+		}
+		return commandes;
+	}
+	
+	public static Commande findCommande(int id){
+		return DaoCommande.find(id);
 	}
 }
