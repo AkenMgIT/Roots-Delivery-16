@@ -1,3 +1,12 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="akenmg.rootsdelivery.model.view.PlatView"%>
+<%@page import="java.util.List"%>
+
+<%
+	List<PlatView> plats = (ArrayList<PlatView>)request.getAttribute("plats");
+
+%>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -87,7 +96,7 @@
       <div class="col-lg-12">
         <h3 class="page-header"><i class="fa fa-table"></i> Données</h3>
         <ol class="breadcrumb">
-          <li><i class="fa fa-home"></i><a href="index.html">Home</a></li>
+          <li><i class="fa fa-home"></i><a href="Dashboard">Home</a></li>
           <li><i class="fa fa-th-list"></i>Plats</li>
         </ol>
       </div>
@@ -100,24 +109,27 @@
             Formulaire Plat
           </header>
           <div class="panel-body">
-            <form class="form-horizontal " method="get">
+            <form class="form-horizontal " method="post" action="BoCreatePlat">
               <div class="form-group">
                 <label class="col-sm-2 control-label">Label</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" placeholder="Label du plat">
+                  <input type="text" class="form-control" name="titre" placeholder="Label du plat" value="${plat.titre }">
+                  <span class="text-left text-primary">${form.erreurs['titre'] }</span>
                 </div>
               </div>
               <div class="form-group">
                 <label class="col-sm-2 control-label">Description</label>
                 <div class="col-sm-10">
                   <!-- <input type="text-area" class="form-control" placeholder="Description du plat"> -->
-                  <textarea class="form-control" rows="3" id="comment"></textarea>
+                  <textarea class="form-control" rows="3" name="description" id="comment">${plat.description }</textarea>
+                  <span class="text-left text-primary">${form.erreurs['description'] }</span>
                 </div>
               </div>
               <div class="form-group">
                 <label class="col-sm-2 control-label">Prix</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" placeholder="En Ariary  ">
+                  <input type="text" class="form-control" name="prix" placeholder="En Ariary" value="${plat.prix }">
+                  <span class="text-left text-primary">${form.erreurs['prix'] }</span>
                 </div>
               </div>
               <div class="form-group">
@@ -129,6 +141,7 @@
               <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
                   <button type="submit" class="btn btn-primary">Ajouter</button>
+                  <span class="text-left ${empty form.erreurs ? 'text-success' : 'text-danger'}">${form.resultat}</span>
                 </div>
               </div>
               
@@ -157,19 +170,23 @@
                 <th><i class="icon_image"></i> Image</th>
                 <th class="text-center"><i class="icon_cogs"></i> Action</th>
               </tr>
-              <tr>
-                <td>variable</td>
-                <td>variable</td>
-                <td>variable</td>
-                <td>variable</td>
-                <td>variable</td>
-                <td class="text-center">
-                  <div class="btn-group">
-                    <a class="btn btn-primary" href="#">Modifier/détails</a>
-                    <a class="btn btn-danger" href="#">Supprimer</i></a>
-                  </div>
-                </td>
-              </tr>
+              <%if(plats!=null && !plats.isEmpty()){ %>
+              	<%for(PlatView p : plats){ %>
+	              <tr>
+	                <td><%=p.getId() %></td>
+	                <td><%=p.getTitre() %></td>
+	                <td><%=p.getDescription(true,26) %></td>
+	                <td><%=p.getPrix() %></td>
+	                <td><%=p.getImg() %></td>
+	                <td class="text-center">
+	                  <div class="btn-group">
+	                    <a class="btn btn-primary" href="fiches/Fiche_Plat?id=<%=p.getId() %>">Modifier/détails</a>
+	                    <a class="btn btn-danger" href="BoDeletePlat?id=<%=p.getId() %>">Supprimer</i></a>
+	                  </div>
+	                </td>
+	              </tr>
+	              <%} %>
+              <%} %>
             </tbody>
           </table>
         </section>

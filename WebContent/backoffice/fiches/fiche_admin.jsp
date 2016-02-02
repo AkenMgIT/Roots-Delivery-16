@@ -74,7 +74,7 @@
     <!--header end-->
 
     <!--sidebar start-->
-    <jsp:include page="../_include/bo-side.jsp"></jsp:include>
+    <jsp:include page="bo-side.jsp"></jsp:include>
     <!--sidebar end-->
     <!-- sidebar menu end-->
   </div>
@@ -88,7 +88,11 @@
         <h3 class="page-header"><i class="fa fa-table"></i> Données</h3>
         <ol class="breadcrumb">
           <li><i class="fa fa-home"></i><a href="#">Home</a></li>
+<<<<<<< HEAD
           <li><i class="fa fa-table"></i><a href="Table_Admins">Admins</a></li>
+=======
+          <li><i class="fa fa-table"></i><a href="../Table_Admins">Admins</a></li>
+>>>>>>> c6e4c2d06d27c46a6c59adc5396597ae24abec9d
           <li><i class="fa fa-file-text"></i>Fiche</li>
         </ol>
       </div>
@@ -101,29 +105,39 @@
             Fiche Admin
           </header>
           <div class="panel-body">
-            <form class="form-horizontal " method="get">
+            <form class="form-horizontal" method="post" action="BoUpdateAdmin">
 			  <div class="form-group">
                 <label class="col-sm-2 control-label">ID</label>
                 <div class="col-sm-10">
-                  <input class="form-control" id="disabledInput" type="text" placeholder="N/A" disabled="" value="xxIDxx">
+                  <input class="form-control" id="disabledInput" type="text" placeholder="N/A" disabled="" value="${admin.id }">
+                  <input type="hidden" name="id" value="${admin.id }">
                 </div>
               </div>
               <div class="form-group">
                 <label class="col-sm-2 control-label">Login</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" placeholder="Login" value="variable">
+                  <input type="text" name="login" class="form-control" placeholder="Login" value="${admin.login }">
+                  <span class="text-left text-primary">${form.erreurs['login'] }</span>
                 </div>
               </div>
               <div class="form-group">
                 <label class="col-sm-2 control-label">Mot de Passe</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" value="variable">
+                  <input type="password" name="motdepasse" class="form-control" value="${admin.mdp }">
+                  <span class="text-left text-primary">${form.erreurs['motdepasse'] }</span>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label">Confirmation</label>
+                <div class="col-sm-10">
+                  <input type="password" name="confirmation" class="form-control" value="${admin.mdp }">
                 </div>
               </div>
 
               <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
                   <button type="submit" class="btn btn-primary">Modifier</button>
+                  <span class="text-left ${empty form.erreurs ? 'text-success' : 'text-danger'}">${form.resultat}</span>
                 </div>
               </div>
 

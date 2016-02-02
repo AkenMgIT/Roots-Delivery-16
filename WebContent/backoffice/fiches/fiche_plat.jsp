@@ -88,7 +88,7 @@
         <h3 class="page-header"><i class="fa fa-table"></i> Données</h3>
         <ol class="breadcrumb">
           <li><i class="fa fa-home"></i><a href="#">Home</a></li>
-          <li><i class="fa fa-table"></i><a href="#">Plats</a></li>
+          <li><i class="fa fa-table"></i><a href="../Table_Plats">Plats</a></li>
           <li><i class="fa fa-file-text"></i>Fiche</li>
         </ol>
       </div>
@@ -101,30 +101,33 @@
             Fiche Plat
           </header>
           <div class="panel-body">
-            <form class="form-horizontal " method="get">
+            <form class="form-horizontal " method="post" action="BoUpdatePlat">
               <div class="form-group">
                 <label class="col-sm-2 control-label">ID</label>
                 <div class="col-sm-10">
-                  <input class="form-control" id="disabledInput" type="text" placeholder="N/A" disabled="" value="xxIDxx">
+                  <input class="form-control" id="disabledInput" type="text" placeholder="N/A" disabled="" value="${plat.id }">
+                  <input type="hidden" name="id" value="${plat.id }">
                 </div>
               </div>
               <div class="form-group">
                 <label class="col-sm-2 control-label">Label</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" placeholder="Label du plat" value="variable">
+                  <input type="text" class="form-control" placeholder="Label du plat" name="titre" value="${plat.titre }">
+                  <span class="text-left text-primary">${form.erreurs['titre'] }</span>
                 </div>
               </div>
               <div class="form-group">
                 <label class="col-sm-2 control-label">Description</label>
                 <div class="col-sm-10">
-                  <!-- <input type="text-area" class="form-control" placeholder="Description du plat"> -->
-                  <textarea class="form-control" rows="3" id="comment">Variable</textarea>
+                  <textarea class="form-control" rows="3" name="description" id="comment">${plat.description }</textarea>
+                  <span class="text-left text-primary">${form.erreurs['description'] }</span>
                 </div>
               </div>
               <div class="form-group">
                 <label class="col-sm-2 control-label">Prix</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" placeholder="En Ariary  " value="variable">
+                  <input type="text" class="form-control" name="prix" placeholder="En Ariary  " value="${plat.prix }">
+                  <span class="text-left text-primary">${form.erreurs['prix'] }</span>
                 </div>
               </div>
               <div class="form-group">
@@ -136,6 +139,7 @@
               <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
                   <button type="submit" class="btn btn-primary">Modifier</button>
+                  <span class="text-left ${empty form.erreurs ? 'text-success' : 'text-danger'}">${form.resultat}</span>
                 </div>
               </div>
 

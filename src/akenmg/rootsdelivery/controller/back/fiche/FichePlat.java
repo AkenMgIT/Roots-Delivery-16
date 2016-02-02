@@ -7,6 +7,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import akenmg.rootsdelivery.model.view.PlatView;
+import akenmg.rootsdelivery.service.DataAccess;
+
 /**
  * Servlet implementation class FichePlat
  */
@@ -27,6 +30,13 @@ public class FichePlat extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String ids = request.getParameter("id");
+		int id = Integer.parseInt(ids);
+		
+		PlatView plat = DataAccess.findPlat(id);
+		
+		request.setAttribute("plat", plat);
+		
 		request.getRequestDispatcher(url).forward(request, response);
 	}
 
@@ -35,7 +45,8 @@ public class FichePlat extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
+//		doGet(request, response);
+		request.getRequestDispatcher(url).forward(request, response);
 	}
 
 }
