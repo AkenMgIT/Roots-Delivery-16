@@ -1,4 +1,5 @@
 
+<%@page import="akenmg.rootsdelivery.model.view.ClientView"%>
 <%@page import="akenmg.rootsdelivery.model.PlaCom"%>
 <%@page import="akenmg.rootsdelivery.model.Commande"%>
 <%@page import="akenmg.rootsdelivery.model.view.PlatView"%>
@@ -8,7 +9,10 @@
 <%
 List<CommandeView> commandes = (ArrayList<CommandeView>)request.getAttribute("commandes");
 List<PlatView> plats = (ArrayList<PlatView>)request.getAttribute("plats");
-Commande commande = (Commande)request.getSession().getAttribute("commande");
+CommandeView commande = new CommandeView(
+(Commande)request.getSession().getAttribute("commande")
+);
+List<ClientView> clients = (ArrayList<ClientView>)request.getAttribute("clients");
 %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -112,7 +116,7 @@ Commande commande = (Commande)request.getSession().getAttribute("commande");
 																	Formulaire Commande
 																</header>
 																<div class="panel-body">
-																	<form class="form-horizontal " method="get">
+																	<form class="form-horizontal " method="post" action="BoCreateCommande">
 																		<div class="form-group">
 																			<label class="col-sm-2 control-label">Commande</label>
 																			<div class="col-sm-10">
@@ -143,35 +147,43 @@ Commande commande = (Commande)request.getSession().getAttribute("commande");
 																						<tr class="warning">
 																							<td>Total</td>
 																							<td colspan="2"></td>
-																							<td>Variable</td>
+																							<td><%=commande.getPrixTotal() %></td>
 																							<td></td>
 																						</tr>
 																					</tbody>
 																				</table>
+																				<span class="text-left text-primary">${form.erreurs['commande'] }</span>
 																			</div>
 																		</div>
 
 																		<div class="form-group">
 																			<label class="col-sm-2 control-label">Clients</label>
 																			<div class="col-sm-10">
-																				<select class="form-control">
-																					<option>variable</option>
-																					<option>variable</option>
-																					<option>variable</option>
+																				<select name="idClient" class="form-control">
+																					<% if(clients != null && !clients.isEmpty()){
+																						for (ClientView c : clients) {
+																							%>
+																							<option value="<%=c.getId()%>"><%=c.getNom() + " " + c.getPrenom()%></option>
+																							<%
+																						}
+																					}
+																					%>
 																				</select>
 																			</div>
 																		</div>
 																		<div class="form-group">
 																			<label class="col-sm-2 control-label">Adresse</label>
 																			<div class="col-sm-10">
-																				<input type="text" class="form-control" placeholder="Adresse de livraison">
+																				<input type="text" class="form-control" name="adresse" placeholder="Adresse de livraison" value="${commandeF.adresse }">
+																				<span class="text-left text-primary">${form.erreurs['adresse'] }</span>
 																				</div>
 																			</div>
 
 																			<div class="form-group">
 																				<div class="col-sm-offset-2 col-sm-10">
 																					<button type="submit" class="btn btn-primary">Ajouter</button>
-																					<a href="#" class="btn btn-default">Reinitialiser</a>
+																					<a href="ReinitialiserCommande" class="btn btn-default">Reinitialiser</a>
+																					<span class="text-left ${empty form.erreurs ? 'text-success' : 'text-danger'}">${form.resultat}</span>
 																				</div>
 																			</div>
 
@@ -242,7 +254,7 @@ Commande commande = (Commande)request.getSession().getAttribute("commande");
 																					<td class="text-center">
 																						<div class="btn-group">
 																							<a class="btn btn-primary" href="fiches/Fiche_Commande?id=<%=c.getId() %>">Détails</a>
-																							<a class="btn btn-danger" href="#?id=<%=c.getId() %>">Supprimer</i></a>
+																							<a class="btn btn-danger" href="BoDeleteCommande?id=<%=c.getId() %>">Supprimer</i></a>
 																						</div>
 																						<div class="btn-group">
 																							<a class="btn btn-warning" href="#?id=<%=c.getId() %>">En Cours</i></a>

@@ -110,4 +110,14 @@ public class DataAccess {
 	public static Commande findCommande(int id){
 		return DaoCommande.find(id);
 	}
+	public static Commande findCommande(int id,boolean bool){
+		return DaoCommande.find(id,bool);
+	}
+	
+	public static void createCommande(Commande commande){
+		DaoCommande.create(commande);
+	}
+	public static void deleteCommande(int id){
+		DaoCommande.delete(id);
+	}
 }

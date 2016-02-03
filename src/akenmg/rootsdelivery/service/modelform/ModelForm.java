@@ -138,6 +138,18 @@ public class ModelForm {
 			throw new Exception("Le prix doit être spécifié");
 		}
 	}
+	
+	protected void validationObligatoire(String prix) throws Exception {
+		if(prix==null || prix.isEmpty()){
+			throw new Exception("Le champ est obligatoire et doit être spécifié");
+		}
+		
+		if (prix != null ) {
+			
+		} else {
+			throw new Exception("Le prix doit être spécifié");
+		}
+	}
 
     protected void setErreur( String champ, String message ) {
         erreurs.put( champ, message );

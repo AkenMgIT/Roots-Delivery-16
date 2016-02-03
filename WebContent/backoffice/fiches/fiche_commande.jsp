@@ -1,3 +1,11 @@
+<%@page import="akenmg.rootsdelivery.model.PlaCom"%>
+<%@page import="akenmg.rootsdelivery.model.Commande"%>
+<%@page import="akenmg.rootsdelivery.model.view.CommandeView"%>
+<%
+Commande com = (Commande)request.getAttribute("commande");
+CommandeView commandeV = new CommandeView(com);
+%>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -74,7 +82,7 @@
     <!--header end-->
 
     <!--sidebar start-->
-    <jsp:include page="../_include/bo-side.jsp"></jsp:include>
+    <jsp:include page="bo-side.jsp"></jsp:include>
     <!--sidebar end-->
     <!-- sidebar menu end-->
   </div>
@@ -108,26 +116,41 @@
 
             <h2>Produits de la commande</h2>
             <table class="table table-striped table-advance table-hover table-bordered">
-              <tbody>
-                <tr>
-                  <th>#</th>
-                  <th><i class="icon_menu-square_alt2"></i> Produit</th>
-                  <th><i class="icon_tag"></i> Quantité</th>
-                  <th><i class="icon_currency"></i> Prix</th>
-                </tr>
-                <tr>
-                  <td></td>
-                  <td>variable</td>
-                  <td>variable</td>
-                  <td>variable</td>
-                </tr>
-                <tr class="warning">
-                  <td>Total</td>
-                  <td colspan="2"></td>
-                  <td>Variable</td>
-                </tr>
-              </tbody>
-            </table>
+					<tbody>
+						<tr>
+							<th>#</th>
+							<th><i class="icon_menu-square_alt2"></i> Produit</th>
+							<th><i class="icon_tag"></i> Quantité</th>
+							<th><i class="icon_currency"></i> Prix</th>
+<!-- 							<th class="text-center"><i class="icon_cogs"></i> Action</th> -->
+						</tr>
+
+						<%
+							if (commandeV != null && !commandeV.getPlacoms().isEmpty()) {
+								for (PlaCom p : commandeV.getPlacoms()) {
+						%>
+						<tr>
+							<td></td>
+							<td><%=p.getPlat().getTitre()%></td>
+							<td><%=p.getQuantite()%></td>
+							<td><%=p.getPlat().getPrix()%></td>
+<!-- 							<td class="text-center"><a class="btn btn-danger" -->
+<%-- 								href="EnleverPlatCommande?id=<%=p.getPlat().getId()%>"><i --%>
+<!-- 									class="icon_minus-06"></i></a></td> -->
+						</tr>
+						<%
+							}
+							}
+						%>
+
+						<tr class="warning">
+							<td>Total</td>
+							<td colspan="2"></td>
+							<td><%=commandeV.getPrixTotal()%></td>
+<!-- 							<td></td> -->
+						</tr>
+					</tbody>
+				</table>
             <hr>
 
             <h2>Informations </h2>

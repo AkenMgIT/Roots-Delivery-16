@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import akenmg.rootsdelivery.model.view.ClientView;
 import akenmg.rootsdelivery.model.view.CommandeView;
 import akenmg.rootsdelivery.model.view.PlatView;
 import akenmg.rootsdelivery.service.DataAccess;
@@ -35,8 +36,10 @@ public class TableCommandes extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		List<PlatView> plats = DataAccess.getAllPlat();
 		List<CommandeView> commandes = DataAccess.getAllCommande(false);
+		List<ClientView> clients = DataAccess.getAllClientsView();
 		request.setAttribute("commandes", commandes);
 		request.setAttribute("plats", plats);
+		request.setAttribute("clients", clients);
 		request.getRequestDispatcher(url).forward(request, response);
 	}
 

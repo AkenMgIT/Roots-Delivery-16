@@ -1,4 +1,4 @@
-package akenmg.rootsdelivery.controller.back.fiche;
+package akenmg.rootsdelivery.controller.back.action;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -7,38 +7,27 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import akenmg.rootsdelivery.model.Commande;
-import akenmg.rootsdelivery.model.view.PlatView;
-import akenmg.rootsdelivery.service.DataAccess;
-
 /**
- * Servlet implementation class FicheCommande
+ * Servlet implementation class ReinitialiserCommande
  */
-@WebServlet("/backoffice/fiches/Fiche_Commande")
-public class FicheCommande extends HttpServlet {
+@WebServlet("/backoffice/ReinitialiserCommande")
+public class ReinitialiserCommande extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static String url = "fiche_commande.jsp";
+	private static String url = "Table_Commandes";
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public FicheCommande() {
+    public ReinitialiserCommande() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String ids = request.getParameter("id");
-		int id = Integer.parseInt(ids);
-		
-		Commande commande = DataAccess.findCommande(id,true);
-		
-		request.setAttribute("commande", commande);
-		
-		request.getRequestDispatcher(url).forward(request, response);
+		request.getSession().removeAttribute("commande");
+		response.sendRedirect(url);
 	}
 
 	/**
