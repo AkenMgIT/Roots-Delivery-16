@@ -120,4 +120,7 @@ public class DataAccess {
 	public static void deleteCommande(int id){
 		DaoCommande.delete(id);
 	}
+	public static void updateEtatCommande(Commande commande){
+		DaoCommande.update(commande);
+	}
 }

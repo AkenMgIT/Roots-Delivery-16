@@ -244,22 +244,33 @@ List<ClientView> clients = (ArrayList<ClientView>)request.getAttribute("clients"
 																				<th class="text-center"><i class="icon_cogs"></i> Action</th>
 																			</tr>
 																			<% if(commandes!=null && !commandes.isEmpty()){
-																				for(CommandeView c : commandes){%>
+																				for(CommandeView c : commandes){
+																				String color = "";
+																				if(c.getEtat().equals(Commande.ETAT.ENCOURS)){
+																					color="text-warning";
+																				}
+																				if(c.getEtat().equals(Commande.ETAT.ANNULLEE)){
+																					color="text-danger";
+																				}
+																				if(c.getEtat().equals(Commande.ETAT.PAYEE)){
+																					color="text-success";
+																				}
+																				%>
 																				<tr>
 																					<td><%=c.getId() %></td>
 																					<td><%=c.getClient().getNom() %> <%=c.getClient().getPrenom() %></td>
 																					<td><%=c.getAdresse() %></td>
 																					<td><%=c.getDate() %></td>
-																					<td><%=c.getEtat().toString() %></td>
+																					<td class="<%=color%>"><%=c.getEtat().toString() %></td>
 																					<td class="text-center">
 																						<div class="btn-group">
 																							<a class="btn btn-primary" href="fiches/Fiche_Commande?id=<%=c.getId() %>">Détails</a>
 																							<a class="btn btn-danger" href="BoDeleteCommande?id=<%=c.getId() %>">Supprimer</i></a>
 																						</div>
-																						<div class="btn-group">
-																							<a class="btn btn-warning" href="#?id=<%=c.getId() %>">En Cours</i></a>
-																							<a class="btn btn-success" href="#?id=<%=c.getId() %>">Payée</i></a>
-																							<a class="btn btn-danger" href="#?id=<%=c.getId() %>">Annuler</i></a>
+																						<div  class="btn-group">
+																							<a class="btn btn-warning" href="BoUpdateCommandeEtat?id=<%=c.getId() %>&etat=encours">En Cours</i></a>
+																							<a class="btn btn-success" href="BoUpdateCommandeEtat?id=<%=c.getId() %>&etat=payee">Payée</i></a>
+																							<a class="btn btn-danger" href="BoUpdateCommandeEtat?id=<%=c.getId() %>&etat=annulee">Annuler</i></a>
 																						</div>
 																					</td>
 																				</tr>
